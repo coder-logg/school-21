@@ -1,0 +1,6 @@
+/STORE/
+/.idea
+/*/.idea
+/*/cmake-build-debug/
+.DS_Store
+CMakeLists.c
