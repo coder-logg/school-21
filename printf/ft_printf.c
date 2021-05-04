@@ -10,11 +10,13 @@ int ft_printf(const char *str, ...)
 	printable = get_printable();
 	while (*str)
 	{
-		if (*str == '%')
+		if (*str == '%' && *(str + 1) != '%')
 		{
-			printable.set_all(&printable, make_pattern((char **)&str, arg), arg);
-			str = ft_strchr("cspdiuxX", *str);
+			printable.set(&printable, make_pattern((char **)&str, arg), va_arg(arg, void *));
+			make_string(printable);
 		}
+		else
+			write(1, str, 1);
 		str++;
 	}
 	return (0);
@@ -22,5 +24,9 @@ int ft_printf(const char *str, ...)
 
 int main()
 {
-	ft_printf("lmmlml  %-0*.*s",5, 3);
+	char *str ="%*.*s";
+//	printf(str,  5, 3, "abcde");
+	ft_printf(str,  5, 3, "abcde");
+//	ft_printf(str , 10, -30, "-40", 4);
+
 }

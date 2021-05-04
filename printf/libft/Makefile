@@ -7,14 +7,14 @@ SRCS	=	ft_bzero.c  ft_isalnum.c ft_isalpha.c ft_isascii.c \
 			ft_atoi.c ft_strnstr.c ft_calloc.c ft_strdup.c \
 			ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c \
 			ft_itoa.c ft_strmapi.c ft_putstr_fd.c ft_putchar_fd.c \
-			ft_putnbr_fd.c ft_putendl_fd.c
+			ft_putnbr_fd.c ft_putendl_fd.c $(BONUSFILES) \
+
 OBJS	=	$(SRCS:.c=.o)
 CC		=	gcc
 FLAGS	=	-Wall -Wextra -Werror
 HEADER	= 	libft.h
 BONUSNAMES = lstadd_front lstnew lstsize lstlast lstadd_back lstdelone lstclear lstiter lstmap
 BONUSFILES = $(addsuffix .c, $(addprefix ft_, $(BONUSNAMES)))
-OBJBONUS = $(BONUSFILES:.c=.o)
 
 %.o: %.c $(HEADER)
 	$(CC) $(FLAGS) -I $(HEADER) -c $<
@@ -25,8 +25,6 @@ OBJBONUS = $(BONUSFILES:.c=.o)
 $(NAME): $(OBJS) $(NAME)($(OBJS))
 
 all: $(NAME)
-
-bonus: $(NAME) $(OBJBONUS) $(NAME)($(OBJBONUS))
 
 clean:
 	rm -f $(OBJS) $(OBJBONUS)

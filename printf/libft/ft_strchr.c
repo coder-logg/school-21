@@ -15,3 +15,15 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)&s[i]);
 	return (NULL);
 }
+
+char	*find_chrs_in_str(const char *s, char *chrs)
+{
+	char	*ptr;
+	while (*(s++))
+	{
+		ptr = ft_strchr(chrs, *s);
+		if (ptr != NULL)
+			return (ptr);
+	}
+	return (NULL);
+}

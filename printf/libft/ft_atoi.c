@@ -20,7 +20,7 @@ int	make_nbr(const char *s, char is_positive)
 		res = res * 10 + s[i] - '0';
 		i++;
 	}
-	return ((int)(res * is_positive));
+	return ((res * is_positive));
 }
 
 int	ft_atoi(const char *str)
@@ -45,7 +45,7 @@ int	ft_atoi(const char *str)
 				return (0);
 		}
 		if (str[i] >= '0' && str[i] <= '9')
-			return ((int)(make_nbr(str + i, is_positive)));
+			return (make_nbr(str + i, is_positive));
 		i++;
 	}
 	return (0);
