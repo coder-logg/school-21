@@ -1,31 +1,36 @@
 NAME    = libftprintf.a
-SRCS    = *.c
+SRCS    = $(wildcard *.c)
 LIBFT	= libft/libft.a
 OBJS    = $(SRCS:.c=.o)
 FLAGS   = -Wall -Wextra -Werror
 HEADER  = libftprintf.h
 PROJDIR = $(dir $(CURDIR))
+LIBFTMAKE = $(MAKE) -C $(dir $(LIBFT))
 
 all: $(NAME)
 
 %.o: %.c
-	gcc $(FLAGS) -I $(HEADER) -c $< -o $(<:.c=.o)
+	$(CC) $(FLAGS) -I $(HEADER) -c $<
 
-$(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)
+(%.o): %.o
+	ar rc $@ $<
 
-${LIBFT}:
-	cd $(dir $@) && $(MAKE) bonus
+$(LIBFT):
+	$(LIBFTMAKE) bonus
+
+$(NAME): $(LIBFT) $(OBJS) $(NAME)($(OBJS))
+
+bonus: $(NAME) $(OBJBONUS) $(NAME)($(OBJBONUS))
 
 exex: $(LIBFT) $(NAME)
 
 clean:
 	rm -f $(OBJS) $(OBJBONUS)
-	cd $(dir $(LIBFT)) && $(MAKE) clean
+	$(LIBFTMAKE) clean
 
 fclean:	clean
 	rm -f $(NAME)
-	cd $(dir $(LIBFT)) && $(MAKE) fclean
+	$(LIBFTMAKE) fclean
 
 re: fclean all
 

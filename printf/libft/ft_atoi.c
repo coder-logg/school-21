@@ -1,6 +1,6 @@
 #include "libft.h"
 
-int	make_nbr(const char *s, char	is_positive)
+int	make_nbr(const char *s, char is_positive)
 {
 	unsigned long	res;
 	unsigned long	max_ul;
