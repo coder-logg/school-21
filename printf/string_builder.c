@@ -1,19 +1,26 @@
 #include "printf.h"
+#include "short_names.h"
 
 int	make_string(t_printable to_print)
 {
-	char	type;
 	char	*buf;
-	int 	curpos;
+	size_t	res;
 
-	buf = malloc(to_print.pattern.width + to_print.pattern.accuracy);
-
-	if (ft_strchr("cspdiuxX",to_print.pattern.type) == NULL)
+	buf = malloc(patt_width + patt_accuracy + 1);
+	if (ft_strchr("cspdiuxX", patt.type) == NULL)
 		return 0;
-	if (to_print.pattern.type == 's')
-		if_str(to_print, buf);
+	if (patt.type == 's')
+		if_str(buf, to_print);
+	if (patt.type == 'd')
+		if_dec(buf, to_print);
 
-	return (1);
+
+
+
+	print_str(buf);
+	res = ft_strlen(buf);
+	free(buf);
+	return (res);
 }
 
 

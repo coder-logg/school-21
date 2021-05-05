@@ -1,7 +1,7 @@
 #include "libft.h"
 #include <string.h>
 
-static int	digit_nbr(int n, unsigned int *tmp_un)
+static int	digit_number(int n, unsigned int *tmp_un)
 {
 	unsigned int	un;
 	int				i;
@@ -34,7 +34,7 @@ char	*ft_itoa(int n)
 	unsigned int	tmp_un;
 	int				dnbr;
 
-	dnbr = digit_nbr(n, &tmp_un);
+	dnbr = digit_number(n, &tmp_un);
 	res = (char *)malloc(sizeof(char) * (dnbr + 1));
 	if (res != NULL)
 	{

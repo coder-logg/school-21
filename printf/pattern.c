@@ -1,23 +1,15 @@
 #include "printf.h"
-
-t_pattern	*new_pattern()
-{
-	t_pattern *res;
-
-	res = malloc(sizeof(t_pattern));
-	ft_memset(res, 0, sizeof(t_pattern) - 1);
-	return (res);
-}
+#define ACCURACY_DEFAULT -1
 
 void	init_pattern(t_pattern *pattern_to_init)
 {
 	pattern_to_init->flag = 0;
 	pattern_to_init->width = 0;
-	pattern_to_init->accuracy = -1;
+	pattern_to_init->accuracy = ACCURACY_DEFAULT;
 	pattern_to_init->type = 0;
 }
 
-void	set_field(char **str, va_list arg, long *ptr)
+long	set_field(char **str, va_list arg, long *ptr)
 {
 	if (**str == '.' && (*(*str + 1) == '*' || ft_isdigit(*(*str + 1))))
 		(*str)++;
@@ -28,12 +20,13 @@ void	set_field(char **str, va_list arg, long *ptr)
 		*ptr = ft_atoi(*str);
 		*str = ft_strchr(*str, *ptr % 10 + '0');
 	}
+	return (*ptr);
 }
 
-void check_patt(t_pattern* pattern, char ind[3])
+void	check_negative(t_pattern* pattern)
 {
-	if (pattern->accuracy < 0 && ind[2])
-		pattern->accuracy = 0;
+	if (pattern->accuracy < 0)
+		pattern->accuracy = -1;
 	if (pattern->width < 0)
 	{
 		pattern->flag = '-';
@@ -66,6 +59,7 @@ t_pattern	make_pattern(char **str, va_list arg)
 		}
 		else if (**str == '.')
 		{
+			pattern.accuracy = 0;
 			indicators[2] = 1;
 			set_field(str, arg, (long *)&pattern.accuracy);
 		}
@@ -74,7 +68,8 @@ t_pattern	make_pattern(char **str, va_list arg)
 	if (**str != '\0')
 	{
 		pattern.type = **str;
-		check_patt(&pattern, indicators);
+		if (pattern.width < 0 || pattern.accuracy < 0)
+			check_negative(&pattern);
 	}
 	else
 		init_pattern(&pattern);

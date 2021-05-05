@@ -1,28 +1,25 @@
 NAME    = libftprintf.a
 SRCS    = $(wildcard *.c)
+HEADERS = $(wildcard *.h)
 LIBFT	= libft/libft.a
 OBJS    = $(SRCS:.c=.o)
 FLAGS   = -Wall -Wextra -Werror
-HEADER  = libftprintf.h
 PROJDIR = $(dir $(CURDIR))
 LIBFTMAKE = $(MAKE) -C $(dir $(LIBFT))
+CC		=	gcc
 
 all: $(NAME)
 
-%.o: %.c
-	$(CC) $(FLAGS) -I $(HEADER) -c $<
+%.o: %.c printf.h
+	$(CC) $(FLAGS) -c $<
 
 (%.o): %.o
 	ar rc $@ $<
 
 $(LIBFT):
-	$(LIBFTMAKE) bonus
+	$(LIBFTMAKE) printf
 
-$(NAME): $(LIBFT) $(OBJS) $(NAME)($(OBJS))
-
-bonus: $(NAME) $(OBJBONUS) $(NAME)($(OBJBONUS))
-
-exex: $(LIBFT) $(NAME)
+$(NAME): $(HEADERS) $(OBJS) $(NAME)($(OBJS)) $(LIBFT)
 
 clean:
 	rm -f $(OBJS) $(OBJBONUS)

@@ -6,7 +6,7 @@
 /*   By: tphlogis <tphlogis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 18:43:42 by tphlogis          #+#    #+#             */
-/*   Updated: 2021/05/04 12:59:24 by tphlogis         ###   ########.fr       */
+/*   Updated: 2021/05/05 22:59:26 by tphlogis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,12 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
+
+
 // My functions
-char	*find_chrs_in_str(const char *s, char *chrs);
-void	*ft_setmem(void *s, int c, size_t len);
+char			*find_chrs_in_str(const char *s, char *chrs);
+void			*ft_setmem(void *s, int c, size_t len);
+char			*itoa_withno_malloc(char* dst, int n);
+int				digit_nbr(long n);
+unsigned int	get_unsigned(long n);
 #endif
