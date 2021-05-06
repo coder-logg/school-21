@@ -1,11 +1,11 @@
 NAME    = libftprintf.a
 SRCS    = $(wildcard *.c)
 HEADERS = $(wildcard *.h)
-LIBFT	= libft/libft.a
+LIBFT	= g
 OBJS    = $(SRCS:.c=.o)
 FLAGS   = -Wall -Wextra -Werror
 PROJDIR = $(dir $(CURDIR))
-LIBFTMAKE = $(MAKE) -C $(dir $(LIBFT))
+LIBFTMAKE = $(MAKE) -C libft/
 CC		=	gcc
 
 all: $(NAME)
@@ -16,8 +16,8 @@ all: $(NAME)
 (%.o): %.o
 	ar rc $@ $<
 
-$(LIBFT):
-	$(LIBFTMAKE) printf
+${LIBFT}:
+	${LIBFTMAKE} printf
 
 $(NAME): $(HEADERS) $(OBJS) $(NAME)($(OBJS)) $(LIBFT)
 
@@ -27,11 +27,8 @@ clean:
 
 fclean:	clean
 	rm -f $(NAME)
-	$(LIBFTMAKE) fclean
 
 re: fclean all
 
-#norm:
-#	norminette -R CheckForbiddenSourceHeader ${SRCS} ${BONUSFILES} ${HEADER}
 
 .PHONY:     all clean fclean re

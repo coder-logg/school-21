@@ -28,16 +28,14 @@ int	ft_printf(const char *str, ...)
 	return (res_len);
 }
 
-int main()
-{
-//	char *str ="%*.*s";
-	int r = 0;
-	r = printf("%-0*.*d", 10, 7, -5876);
-	printf("\n%d\n", r);
-	r = ft_printf("%-0*.*d", 10, 7, -5876);
-	printf("\n%d", r);
-
-//	ft_printf(str , 10, -30, "-420CDTN@01ecnfd
-//	0", 4);
-
-}
+//#define input "%07d", -54
+//
+//int main()
+//{
+////	char *str ="%*.*s";
+//	int r = 0;
+//	r = printf(input);
+//	printf("\n%d\n", r);
+//	r = ft_printf(input);
+//	printf("\n%d", r);
+//}

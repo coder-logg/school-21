@@ -8,7 +8,7 @@ SRCS	=	ft_bzero.c  ft_isalnum.c ft_isalpha.c ft_isascii.c \
 			ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c \
 			ft_itoa.c ft_strmapi.c ft_putstr_fd.c ft_putchar_fd.c \
 			ft_putnbr_fd.c ft_putendl_fd.c $(BONUSFILES)\
-			itoa_withno_malloc.c
+			itoa_withno_malloc.c max.c
 OBJS	=	$(SRCS:.c=.o)
 CC		=	gcc
 FLAGS	=	-Wall -Wextra -Werror

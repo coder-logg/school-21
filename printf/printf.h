@@ -8,7 +8,7 @@
 // Structures
 //note %[флаги] [ширина] [.точность] [размер] тип
 //note	  ||	   ||		||		   || 	   ||
-//note   flags	 patt_width	 daccuracy     size    dtypes
+//note   flags	 to_print.pattern.width	 daccuracy     size    to_print.types
 typedef struct s_pattern
 {
 	char	flag;

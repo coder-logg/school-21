@@ -1,5 +1,4 @@
 #include "printf.h"
-#include "short_names.h"
 
 char	*fill_to_width(char* buf, char flag, size_t res_len, unsigned int width)
 {
@@ -22,18 +21,18 @@ char	*if_str(char *buf ,t_printable to_print)
 	char	*pos;
 	size_t	res_len;
 
-	if (dtypes.string == NULL || dtypes.string == 0)
-		dtypes.string = "(null)";
-	res_len = ft_strlen(dtypes.string);
-	if (patt_accuracy < (int)res_len && patt_accuracy != -1)
-		res_len = patt_accuracy;
-	if (res_len < (size_t)patt_width)
-		pos = fill_to_width(buf, patt.flag, res_len, patt_width);
+	if (to_print.types.string == NULL || to_print.types.string == 0)
+		to_print.types.string = "(null)";
+	res_len = ft_strlen(to_print.types.string);
+	if (to_print.pattern.accuracy < (int)res_len && to_print.pattern.accuracy != -1)
+		res_len = to_print.pattern.accuracy;
+	if (res_len < (size_t)to_print.pattern.width)
+		pos = fill_to_width(buf, to_print.pattern.flag, res_len, to_print.pattern.width);
 	else
 		pos = buf;
-	ft_memcpy(pos, dtypes.string, res_len);
-	if (res_len < (size_t)patt_width && patt.flag == '-')
-		pos[patt_width] = 0;
+	ft_memcpy(pos, to_print.types.string, res_len);
+	if (res_len < (size_t)to_print.pattern.width && to_print.pattern.flag == '-')
+		pos[to_print.pattern.width] = 0;
 	else
 		pos[res_len] = 0;
 	return (buf);
