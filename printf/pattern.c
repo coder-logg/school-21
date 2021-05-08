@@ -1,11 +1,10 @@
-#include "printf.h"
-#define ACCURACY_DEFAULT -1
+#include "ft_printf.h"
 
 void	init_pattern(t_pattern *pattern_to_init)
 {
 	pattern_to_init->flag = 0;
 	pattern_to_init->width = 0;
-	pattern_to_init->accuracy = ACCURACY_DEFAULT;
+	pattern_to_init->accuracy = -1;
 	pattern_to_init->type = 0;
 }
 
@@ -23,7 +22,7 @@ long	set_field(char **str, va_list arg, long *ptr)
 	return (*ptr);
 }
 
-void	check_negative(t_pattern* pattern)
+void	check_negative(t_pattern *pattern)
 {
 	if (pattern->accuracy < 0)
 		pattern->accuracy = -1;
@@ -34,35 +33,54 @@ void	check_negative(t_pattern* pattern)
 	}
 }
 
+t_pattern	iter(char **str, va_list arg, t_pattern *pattern, char *indicators)
+{
+	if ((**str == '-' ||**str == '0') && !indicators[1])
+	{
+		indicators[0] = 1;
+		if (!((*pattern).flag == '-' &&**str == '0'))
+			(*pattern).flag =**str;
+	}
+	else if ((**str == '*' || ft_isdigit(**str)) && !indicators[2])
+	{
+		indicators[1] = 1;
+		set_field(str, arg, &(*pattern).width);
+	}
+	else if (**str == '.')
+	{
+		(*pattern).accuracy = 0;
+		indicators[2] = 1;
+		set_field(str, arg, (long *)&(*pattern).accuracy);
+	}
+	return (*pattern);
+}
+
+char	check_patt_symbol(char c)
+{
+	if ((ft_strchr(".*-", c) != NULL || ft_isdigit(c)))
+		return (1);
+	return (0);
+}
+
 // note: str указывает на %
 t_pattern	make_pattern(char **str, va_list arg)
 {
 	t_pattern	pattern;
 	char		indicators[3];
+	char		*start_tmp;
 
 	ft_memset(&pattern, 0, sizeof(t_pattern));
 	ft_memset(indicators, 0, 3);
 	init_pattern(&pattern);
 	(*str)++;
-	while (ft_strchr("cspdiuxX",**str) == NULL &&**str)
+	start_tmp = *str;
+	while (ft_strchr("cspdiuxX%", **str) == NULL && **str)
 	{
-		if ((**str == '-' ||**str == '0') && !indicators[1])
+		if (!check_patt_symbol(**str))
 		{
-			indicators[0] = 1;
-			if (!(pattern.flag == '-' &&**str == '0'))
-				pattern.flag =**str;
+			break;
 		}
-		else if ((**str == '*' || ft_isdigit(**str)) && !indicators[2])
-		{
-			indicators[1] = 1;
-			set_field(str, arg, &pattern.width);
-		}
-		else if (**str == '.')
-		{
-			pattern.accuracy = 0;
-			indicators[2] = 1;
-			set_field(str, arg, (long *)&pattern.accuracy);
-		}
+		pattern = iter(str, arg, &pattern, indicators);
 		(*str)++;
 	}
 	if (**str != '\0')
@@ -75,5 +93,3 @@ t_pattern	make_pattern(char **str, va_list arg)
 		init_pattern(&pattern);
 	return (pattern);
 }
-
-

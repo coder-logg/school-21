@@ -1,4 +1,4 @@
-#include "printf.h"
+#include "ft_printf.h"
 #include <stdio.h>
 
 void	set_printable(t_printable *to_ini, t_pattern pattern, void *data)
@@ -6,19 +6,22 @@ void	set_printable(t_printable *to_ini, t_pattern pattern, void *data)
 	to_ini->pattern = pattern;
 	if (pattern.type == 's')
 		to_ini->types.string = (char *)data;
-	if (ft_strchr("cuxX", pattern.type) != NULL)
+	else if (ft_strchr("cuxX", pattern.type) != NULL)
 		to_ini->types.ui = (unsigned int)data;
-	if (pattern.type == 'd')
+	else if (pattern.type == 'd' || pattern.type == 'i')
 		to_ini->types.dec = (int)data;
-	if (pattern.type == 'p')
-		to_ini->types.uli = (unsigned long)data;
+	else if (pattern.type == 'p')
+		to_ini->types.ptr = (unsigned long)data;
+	else
+	{
+		to_ini->types.ui = *(unsigned int*)data;
+	}
 }
 
-t_printable	get_printable()
+t_printable	get_printable(void)
 {
-	t_printable res;
+	t_printable	res;
 
-	ft_memset(&res, 0, sizeof(t_printable) - 1);
-	res.set = set_printable;
+	ft_memset(&res, 0, sizeof(t_printable));
 	return (res);
 }

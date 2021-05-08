@@ -27,7 +27,7 @@ int	digit_nbr(long n)
 	return (i);
 }
 
-char	*itoa_withno_malloc(char* dst, int n)
+char	*itoa_withno_malloc(char* dst, long n)
 {
 	unsigned int tmp_un;
 	int dnbr;

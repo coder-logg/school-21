@@ -71,7 +71,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 // My functions
 char			*find_chrs_in_str(const char *s, char *chrs);
 void			*ft_setmem(void *s, int c, size_t len);
-char			*itoa_withno_malloc(char* dst, int n);
+char			*itoa_withno_malloc(char* dst, long n);
 int				digit_nbr(long n);
 unsigned int	get_unsigned(long n);
 long			max(long a, long b);

@@ -1,4 +1,4 @@
-#include "printf.h"
+#include "ft_printf.h"
 
 void	print_str(char *str)
 {
