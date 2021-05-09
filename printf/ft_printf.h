@@ -8,7 +8,7 @@
 // Structures
 //note %[флаги] [ширина] [.точность] [размер] тип
 //note	  ||	   ||		||		   || 	   ||
-//note   flags	 to_print.pattern.width	 daccuracy     size    to_print.types
+//note   flags	 width	 accuracy    size    types
 typedef struct s_pattern
 {
 	char	flag;
@@ -19,10 +19,10 @@ typedef struct s_pattern
 
 typedef struct s_type
 {
-	char				*string;
-	unsigned int		ui;
-	unsigned long int	ptr;
-	int 				dec;
+	char			*string;
+	unsigned int	ui;
+	long int		ptr;
+	int 			dec;
 }				t_type;
 
 
@@ -45,6 +45,6 @@ size_t		if_chr(char *buf, t_printable to_print);
 void		print_str(char *str);
 char		*fill_to_width(char* buf, char flag, size_t res_len, unsigned int width); // можено удалить
 char		get_fill_char(t_pattern pattern);
-void	set_printable(t_printable *to_ini, t_pattern pattern, void *data);
+void		set_printable(t_printable *to_ini, t_pattern pattern, void *data);
 
 #endif

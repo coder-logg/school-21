@@ -5,14 +5,18 @@ unsigned long	get_unsigned(long n)
 
 	un = n;
 	if (n < 0)
-		un = n * -1;
+	{
+		un = ~un;
+		un++;
+	}
 	return (un);
 }
 
-int	digit_nbr(long n)
+int digit_nbr(long n)
 {
-	int	i;
-	unsigned long unl;
+	int				i;
+	unsigned long	unl;
+
 	if (n == 0)
 		return (1);
 	i = 0;
@@ -29,8 +33,8 @@ int	digit_nbr(long n)
 
 char	*itoa_withno_malloc(char* dst, long n)
 {
-	unsigned int tmp_un;
-	int dnbr;
+	unsigned int	tmp_un;
+	int				dnbr;
 
 	if (dst == (void *)0)
 		return (void *)0;

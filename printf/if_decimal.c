@@ -17,7 +17,7 @@ char	*get_start_pos(t_printable for_print, char *buf, int nbr_len,
 	nbr_start = NULL;
 	if (for_print.pattern.flag == '-')
 		nbr_start = buf;
-	else if (nbr_len < for_print.pattern.accuracy)
+	else if (nbr_len <= for_print.pattern.accuracy)
 	{
 		if (for_print.pattern.accuracy != field_len)
 		{
@@ -49,7 +49,7 @@ void	if_negative_nbr(t_printable for_print, char *buf, char *nbr_start,
 	if (for_print.types.dec < 0)
 	{
 		nbr_start[0] = '-';
-		if (for_print.pattern.accuracy > nbr_len)
+		if (for_print.pattern.accuracy >= nbr_len)
 			nbr_start = ft_setmem(nbr_start + 1, '0',
 					for_print.pattern.accuracy - (nbr_len - 1));
 		else if (for_print.pattern.flag == '0'
@@ -86,7 +86,7 @@ void	if_positive_nbr(t_printable for_print, char *buf, char *nbr_start,
 	}
 }
 
-size_t if_dec(char *buf, t_printable to_print)
+size_t	if_dec(char *buf, t_printable to_print)
 {
 	int		nbr_len;
 	char	*nbr_start;

@@ -16,7 +16,7 @@ char	*fill_to_width(char *buf, char flag, size_t res_len, unsigned int width)
 	return (pos);
 }
 
-size_t if_str(char *buf, t_printable to_print)
+size_t	if_str(char *buf, t_printable to_print)
 {
 	char	*pos;
 	size_t	res_len;

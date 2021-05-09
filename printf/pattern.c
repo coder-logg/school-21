@@ -55,13 +55,6 @@ t_pattern	iter(char **str, va_list arg, t_pattern *pattern, char *indicators)
 	return (*pattern);
 }
 
-char	check_patt_symbol(char c)
-{
-	if ((ft_strchr(".*-", c) != NULL || ft_isdigit(c)))
-		return (1);
-	return (0);
-}
-
 // note: str указывает на %
 t_pattern	make_pattern(char **str, va_list arg)
 {
@@ -76,10 +69,8 @@ t_pattern	make_pattern(char **str, va_list arg)
 	start_tmp = *str;
 	while (ft_strchr("cspdiuxX%", **str) == NULL && **str)
 	{
-		if (!check_patt_symbol(**str))
-		{
-			break;
-		}
+		if (!(ft_strchr(".*-", **str) != NULL || ft_isdigit(**str)))
+			break ;
 		pattern = iter(str, arg, &pattern, indicators);
 		(*str)++;
 	}

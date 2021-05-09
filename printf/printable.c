@@ -13,9 +13,7 @@ void	set_printable(t_printable *to_ini, t_pattern pattern, void *data)
 	else if (pattern.type == 'p')
 		to_ini->types.ptr = (unsigned long)data;
 	else
-	{
-		to_ini->types.ui = *(unsigned int*)data;
-	}
+		to_ini->types.ui = *(unsigned int *)data;
 }
 
 t_printable	get_printable(void)

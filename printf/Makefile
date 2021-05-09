@@ -16,7 +16,7 @@ all: $(NAME)
 (%.o): %.o
 	ar rc $@ $<
 
-${LIBFT}:
+$(LIBFT):
 	${LIBFTMAKE} printf
 
 $(NAME): $(HEADERS) $(OBJS) $(NAME)($(OBJS)) $(LIBFT)
