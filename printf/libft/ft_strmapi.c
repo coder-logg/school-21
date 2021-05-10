@@ -19,3 +19,14 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	res[i] = 0;
 	return (res);
 }
+
+void	for_each_chr_in_str(char *str, char ( * f)(char))
+{
+	if (str == NULL || f == NULL)
+		return ;
+	while (*str)
+	{
+		*str = f(*str);
+		str++;
+	}
+}

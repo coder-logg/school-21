@@ -6,7 +6,7 @@
 /*   By: tphlogis <tphlogis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 18:43:42 by tphlogis          #+#    #+#             */
-/*   Updated: 2021/05/09 22:02:21 by tphlogis         ###   ########.fr       */
+/*   Updated: 2021/05/10 18:41:26 by tphlogis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,5 @@ char			*itoa_withno_malloc(char* dst, long n);
 int				digit_nbr(long n);
 unsigned long	get_unsigned(long n);
 long			max(long a, long b);
+void			for_each_chr_in_str(char *str, char ( * f)(char));
 #endif

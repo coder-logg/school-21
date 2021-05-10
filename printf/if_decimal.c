@@ -1,4 +1,4 @@
-#include "ft_printf.h"
+#include "printf.h"
 
 char	get_fill_char(t_pattern pattern)
 {
@@ -6,7 +6,7 @@ char	get_fill_char(t_pattern pattern)
 		return ('0');
 	if (pattern.flag == '-' || pattern.flag == 0)
 		return (' ');
-	return (' ');
+	return ('0');
 }
 
 char	*get_start_pos(t_printable for_print, char *buf, int nbr_len,
@@ -38,7 +38,7 @@ char	*get_start_pos(t_printable for_print, char *buf, int nbr_len,
 	return (nbr_start);
 }
 
-void	if_negative_nbr(t_printable for_print, char *buf, char *nbr_start,
+static void	if_negative_nbr(t_printable for_print, char *buf, char *nbr_start,
 	int arr[2])
 {
 	int		nbr_len;
@@ -64,7 +64,7 @@ void	if_negative_nbr(t_printable for_print, char *buf, char *nbr_start,
 	}
 }
 
-void	if_positive_nbr(t_printable for_print, char *buf, char *nbr_start,
+static void	if_positive_nbr(t_printable for_print, char *buf, char *nbr_start,
 	int arr[2])
 {
 	int		nbr_len;

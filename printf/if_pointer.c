@@ -1,4 +1,4 @@
-#include "ft_printf.h"
+#include "printf.h"
 
 char	get_hex(unsigned char digit)
 {
@@ -14,6 +14,8 @@ size_t	nbr_len_hex(unsigned long unbr)
 {
 	size_t	i;
 
+	if (unbr == 0)
+		return (1);
 	i = 0;
 	while (unbr > 0)
 	{
@@ -22,42 +24,49 @@ size_t	nbr_len_hex(unsigned long unbr)
 	}
 	return (i);
 }
-char	*convert_to_hex(long nbr, char *dst)
+
+size_t	itoa_hex(long nbr, char *dst)
 {
 	unsigned long	unbr;
 	unsigned long	unbr_tmp;
 	size_t			i;
-	char			nbr_of_digits;
-
+	size_t			nbr_len;
 
 	unbr = get_unsigned(nbr);
 	unbr_tmp = unbr;
 	i = nbr_len_hex(unbr);
-	nbr_of_digits = i;
-	while (unbr_tmp > 0)
+	dst[i] = 0;
+	nbr_len = i;
+	while (i-- > 0)
 	{
-		dst[--i] = get_hex(unbr_tmp % 16);
+		dst[i] = get_hex(unbr_tmp % 16);
 		unbr_tmp /= 16;
 	}
-	dst[(int)nbr_of_digits] = 0;
-	return (dst);
+	return (nbr_len);
 }
-
 
 size_t	if_ptr(char *buf, t_printable to_print)
 {
-//	buf
-	(void) buf;
-	(void)to_print;
-	return (0);
-}
+	char	*start_pos;
+	int		field_len;
+	int		nbr_len;
+	int		accur;
 
-//#include <stdio.h>
-//int main()
-//{
-//	char dst[100];
-//	long l = 9223372036854775807;
-////	printf("%ld\n", l);
-//	printf("%50.10p\n", l);
-//	printf("%s\n", convert_to_hex(l,dst));
-//}
+	nbr_len = nbr_len_hex(get_unsigned(to_print.types.ptr));
+	accur = to_print.pattern.accuracy;
+	if (to_print.pattern.accuracy != -1)
+		to_print.pattern.accuracy += 2;
+	field_len = max(nbr_len + 2, max(to_print.pattern.accuracy, to_print.pattern.width));
+	ft_memset(buf, ' ', field_len);
+	start_pos = get_start_pos(to_print, buf, nbr_len + 2, field_len);
+	start_pos[0] = '0';
+	start_pos[1] = 'x';
+	start_pos += 2;
+	if (accur > nbr_len)
+		start_pos = ft_setmem(start_pos, '0', accur - nbr_len);
+	itoa_hex(to_print.types.ptr, start_pos);
+	if (start_pos + nbr_len != buf + field_len)
+		start_pos[nbr_len] = get_fill_char(to_print.pattern);
+	buf[field_len + 1] = 0;
+	return (field_len);
+}

@@ -1,6 +1,6 @@
-#include "ft_printf.h"
+#include "printf.h"
 
-void	init_pattern(t_pattern *pattern_to_init)
+static void	init_pattern(t_pattern *pattern_to_init)
 {
 	pattern_to_init->flag = 0;
 	pattern_to_init->width = 0;
@@ -8,12 +8,12 @@ void	init_pattern(t_pattern *pattern_to_init)
 	pattern_to_init->type = 0;
 }
 
-long	set_field(char **str, va_list arg, long *ptr)
+static long	set_field(char **str, va_list *arg, long *ptr)
 {
 	if (**str == '.' && (*(*str + 1) == '*' || ft_isdigit(*(*str + 1))))
 		(*str)++;
 	if (**str == '*')
-		*ptr = va_arg(arg, int);
+		*ptr = va_arg(*arg, int);
 	if (ft_isdigit(**str))
 	{
 		*ptr = ft_atoi(*str);
@@ -22,7 +22,7 @@ long	set_field(char **str, va_list arg, long *ptr)
 	return (*ptr);
 }
 
-void	check_negative(t_pattern *pattern)
+static void	check_negative(t_pattern *pattern)
 {
 	if (pattern->accuracy < 0)
 		pattern->accuracy = -1;
@@ -33,13 +33,13 @@ void	check_negative(t_pattern *pattern)
 	}
 }
 
-t_pattern	iter(char **str, va_list arg, t_pattern *pattern, char *indicators)
+static t_pattern	iter(char **str, va_list *arg, t_pattern *pattern, char *indicators)
 {
 	if ((**str == '-' ||**str == '0') && !indicators[1])
 	{
 		indicators[0] = 1;
 		if (!((*pattern).flag == '-' &&**str == '0'))
-			(*pattern).flag =**str;
+			(*pattern).flag = **str;
 	}
 	else if ((**str == '*' || ft_isdigit(**str)) && !indicators[2])
 	{
@@ -56,7 +56,7 @@ t_pattern	iter(char **str, va_list arg, t_pattern *pattern, char *indicators)
 }
 
 // note: str указывает на %
-t_pattern	make_pattern(char **str, va_list arg)
+t_pattern	make_pattern(char **str, va_list *arg)
 {
 	t_pattern	pattern;
 	char		indicators[3];

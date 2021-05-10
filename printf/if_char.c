@@ -1,6 +1,6 @@
-#include "ft_printf.h"
+#include "printf.h"
 
-size_t	if_zerochr_and_minus_flag(char *buf, t_printable *to_print, char *pos)
+static size_t	if_zerochr_and_minus_flag(char *buf, t_printable *to_print, char *pos)
 {
 	size_t	res;
 
@@ -18,7 +18,7 @@ size_t	if_zerochr_and_minus_flag(char *buf, t_printable *to_print, char *pos)
 	return (res);
 }
 
-size_t	if_zero(char *buf, t_printable to_print)
+static size_t	if_zero(char *buf, t_printable to_print)
 {
 	size_t	res;
 	char	*pos;

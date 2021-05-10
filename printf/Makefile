@@ -10,7 +10,7 @@ CC		=	gcc
 
 all: $(NAME)
 
-%.o: %.c ft_printf.h
+%.o: %.c printf.h
 	$(CC) $(FLAGS) -c $<
 
 (%.o): %.o

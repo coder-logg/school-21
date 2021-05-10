@@ -1,4 +1,4 @@
-#include "ft_printf.h"
+#include "printf.h"
 
 char	*fill_to_width(char *buf, char flag, size_t res_len, unsigned int width)
 {
