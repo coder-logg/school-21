@@ -19,7 +19,6 @@ BONUSFILES = $(addsuffix .c, $(addprefix ft_, $(BONUSNAMES)))
 %.o: %.c $(HEADER)
 	$(CC) $(FLAGS) -c $<
 
-
 (%.o): %.o
 	ar rc $@ $<
 

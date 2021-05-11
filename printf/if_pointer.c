@@ -25,14 +25,14 @@ size_t	nbr_len_hex(unsigned long unbr)
 	return (i);
 }
 
-size_t	itoa_hex(long nbr, char *dst)
+size_t	itoa_hex(unsigned long nbr, char *dst)
 {
 	unsigned long	unbr;
 	unsigned long	unbr_tmp;
 	size_t			i;
 	size_t			nbr_len;
 
-	unbr = get_unsigned(nbr);
+	unbr = nbr;
 	unbr_tmp = unbr;
 	i = nbr_len_hex(unbr);
 	dst[i] = 0;
@@ -52,11 +52,12 @@ size_t	if_ptr(char *buf, t_printable to_print)
 	int		nbr_len;
 	int		accur;
 
-	nbr_len = nbr_len_hex(get_unsigned(to_print.types.ptr));
+	nbr_len = nbr_len_hex(to_print.types.ptr);
 	accur = to_print.pattern.accuracy;
 	if (to_print.pattern.accuracy != -1)
 		to_print.pattern.accuracy += 2;
-	field_len = max(nbr_len + 2, max(to_print.pattern.accuracy, to_print.pattern.width));
+	field_len = max(nbr_len + 2, max(to_print.pattern.accuracy,
+				to_print.pattern.width));
 	ft_memset(buf, ' ', field_len);
 	start_pos = get_start_pos(to_print, buf, nbr_len + 2, field_len);
 	start_pos[0] = '0';

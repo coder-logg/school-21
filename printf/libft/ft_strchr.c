@@ -19,6 +19,7 @@ char	*ft_strchr(const char *s, int c)
 char	*find_chrs_in_str(const char *s, char *chrs)
 {
 	char	*ptr;
+
 	while (*(s++))
 	{
 		ptr = ft_strchr(chrs, *s);

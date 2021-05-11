@@ -1,5 +1,4 @@
-
-unsigned long	get_unsigned(long n)
+unsigned long long	get_unsigned(long long n)
 {
 	unsigned long	un;
 
@@ -12,7 +11,7 @@ unsigned long	get_unsigned(long n)
 	return (un);
 }
 
-int digit_nbr(long n)
+int	digit_nbr(long n)
 {
 	int				i;
 	unsigned long	unl;
@@ -31,13 +30,13 @@ int digit_nbr(long n)
 	return (i);
 }
 
-char	*itoa_withno_malloc(char* dst, long n)
+char	*itoa_withno_malloc(char *dst, long long n)
 {
 	unsigned int	tmp_un;
 	int				dnbr;
 
 	if (dst == (void *)0)
-		return (void *)0;
+		return ((void *)0);
 	tmp_un = n;
 	if (n < 0)
 	{
@@ -48,7 +47,8 @@ char	*itoa_withno_malloc(char* dst, long n)
 		dst[0] = 0;
 	dnbr = digit_nbr(n);
 	dst[dnbr] = 0;
-	while (dnbr > 0 + (dst[0] == '-')) {
+	while (dnbr > 0 + (dst[0] == '-'))
+	{
 		dnbr--;
 		dst[dnbr] = tmp_un % 10 + '0';
 		tmp_un /= 10;

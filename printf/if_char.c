@@ -1,11 +1,12 @@
 #include "printf.h"
 
-static size_t	if_zerochr_and_minus_flag(char *buf, t_printable *to_print, char *pos)
+static size_t	if_zerochr_and_minus_flag(char *buf, t_printable to_print,
+	char *pos)
 {
 	size_t	res;
 
 	buf[0] = 0;
-	if ((*to_print).pattern.width <= 1)
+	if (to_print.pattern.width <= 1)
 	{
 		buf[1] = 0;
 		res = 1;
@@ -13,7 +14,7 @@ static size_t	if_zerochr_and_minus_flag(char *buf, t_printable *to_print, char *
 	else
 	{
 		pos[0] = 0;
-		res = (*to_print).pattern.width;
+		res = to_print.pattern.width;
 	}
 	return (res);
 }
@@ -27,7 +28,7 @@ static size_t	if_zero(char *buf, t_printable to_print)
 	pos = ft_setmem(buf, get_fill_char(to_print.pattern),
 			to_print.pattern.width);
 	if (to_print.pattern.flag == '-')
-		res = if_zerochr_and_minus_flag(buf, &to_print, pos);
+		res = if_zerochr_and_minus_flag(buf, to_print, pos);
 	else if (to_print.pattern.width > 1)
 	{
 		pos[-1] = 0;

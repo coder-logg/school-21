@@ -18,6 +18,12 @@ unsigned int	get_bufsize(t_printable to_print)
 	}
 	if (to_print.pattern.type == 'c')
 		bufsize = to_print.pattern.width + 2;
+	if (to_print.pattern.type == 'p')
+		bufsize = max(nbr_len_hex(to_print.types.ptr) + 2,
+				max(to_print.pattern.accuracy, to_print.pattern.width)) + 2;
+	if (to_print.pattern.type == 'x' || to_print.pattern.type == 'X')
+		bufsize = max(nbr_len_hex(to_print.types.ui),
+				max(to_print.pattern.accuracy, to_print.pattern.width)) + 2;
 	return (bufsize);
 }
 
