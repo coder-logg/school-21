@@ -61,22 +61,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (res);
 }
 
-char	*ft_strchr(const char *s, int c)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == (char)c)
-			return ((char *)&s[i]);
-		i++;
-	}
-	if (s[i] == (char)c)
-		return ((char *)&s[i]);
-	return (NULL);
-}
-
 void	*ft_memchr(const void *s, int c, size_t n)
 {
 	void	*res;
