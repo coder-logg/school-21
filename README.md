@@ -4,7 +4,9 @@
 ## Полезные ссылки
 [#coding_wiki](https://www.notion.so/coding_wiki-1d8b8bc675f5426db90a02dd22324ac8)\
 [faq школы 21](https://github.com/daniiomir/faq_for_school_21)\
-[полное руководство по make](http://linux.yaroslavl.ru/docs/prog/gnu_make_3-79_russian_manual.html)
+[полное руководство по make](http://linux.yaroslavl.ru/docs/prog/gnu_make_3-79_russian_manual.html)\
+[таблица символов ascii](https://snipp.ru/handbk/table-ascii)\
+[ip калькулятор](https://ip-calculator.ru/#!ip=240.19.3.205/12)
 
 ## Тестеры
 * libft
