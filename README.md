@@ -8,6 +8,8 @@
 [таблица символов ascii](https://snipp.ru/handbk/table-ascii)\
 [ip калькулятор](https://ip-calculator.ru/#!ip=240.19.3.205/12)
 
+**Экзамены**:\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[первый](https://github.com/Glagan/42-exam-rank-02)
 ## Тестеры
 * libft
     * [war-machine](https://github.com/ska42/libft-war-machine)
