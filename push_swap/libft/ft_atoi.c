@@ -1,6 +1,6 @@
 #include "libft.h"
 
-int	make_nbr(const char *s, char is_positive)
+long	make_nbr(const char *s, char is_positive)
 {
 	unsigned long	res;
 	unsigned long	max_ul;
@@ -23,7 +23,7 @@ int	make_nbr(const char *s, char is_positive)
 	return ((res * is_positive));
 }
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
 	size_t	i;
 	char	is_positive;

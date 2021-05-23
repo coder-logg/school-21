@@ -16,13 +16,13 @@ static void rotate(int arr[], unsigned int arr_size)
 static void print_rotate(t_stack stack, const char *msg)
 {
 	write(1, msg, ft_strlen(msg));
-	rotate(stack.stack, stack.s_size);
+	rotate(stack.head, stack.s_size);
 }
 
 void	rr(t_stack a, t_stack b)
 {
 	print_rotate(a, "ss\n");
-	rotate(b.stack, b.s_size);
+	rotate(b.head, b.s_size);
 }
 
 void	ra(t_stack a)

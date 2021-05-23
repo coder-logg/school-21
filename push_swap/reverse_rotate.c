@@ -1,5 +1,4 @@
 #include "push_swap.h"
-#include <stdio.h>
 
 static void reverse_rotate(int arr[], unsigned int arr_size)
 {
@@ -17,13 +16,13 @@ static void reverse_rotate(int arr[], unsigned int arr_size)
 static void print_rrotate(t_stack stack, const char *msg)
 {
 	write(1, msg, ft_strlen(msg));
-	reverse_rotate(stack.stack, stack.s_size);
+	reverse_rotate(stack.head, stack.s_size);
 }
 
 void	rrr(t_stack a, t_stack b)
 {
 	print_rrotate(a, "rrr\n");
-	reverse_rotate(b.stack, b.s_size);
+	reverse_rotate(b.head, b.s_size);
 }
 
 void	rra(t_stack a)

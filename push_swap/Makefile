@@ -1,6 +1,6 @@
 NAME	=	push_swap
 LIBFT   =	libft/libft.a
-SRCS	=	push.c push_swap.c push_swap.h reverse_rotate.c rotate.c swap.c
+SRCS	=	push.c push_swap.c reverse_rotate.c rotate.c swap.c sort.c
 OBJS	=	$(SRCS:.c=.o)
 CC		=	gcc
 FLAGS	=	-Wall -Wextra -Werror
@@ -20,15 +20,16 @@ $(LIBFT):
 	$(LIBFTMAKE)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) -o $@ $(LIBFT) $(OBJS)
+	$(CC) -o $@ $(LIBFT) $(OBJS) -I $(HEADER)
 
-cclean:
+clean:
 	rm -f  $(OBJS)
 	$(LIBFTMAKE) clean
 
 fclean:
 	rm -f $(NAME) $(OBJS)
 	$(LIBFTMAKE) fclean
+
 %.o: %.c $(HEADER)
 	$(CC) $(FLAGS) -c $<
 

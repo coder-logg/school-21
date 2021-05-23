@@ -17,14 +17,14 @@ void	swap(int arr[], unsigned int arr_size)
 void	ss(t_stack a, t_stack b)
 {
 	write(1, "ss\n", 3);
-	swap(a.stack, a.s_size);
-	swap(b.stack, b.s_size);
+	swap(a.head, a.s_size);
+	swap(b.head, b.s_size);
 }
 
 void	print_swap(t_stack stack, const char *msg)
 {
 	write(1, msg, ft_strlen(msg));
-	swap(stack.stack, stack.s_size);
+	swap(stack.head, stack.s_size);
 }
 
 void	sb(t_stack b)

@@ -1,24 +1,29 @@
 #include "push_swap.h"
 
 // note:  push - берет первый элемент вверху src и поместите его вверху dst. Ничего не делать, если src пусто
-static void	push(int dst[], int src[], unsigned int src_size)
+static void	push(t_stack *dst, t_stack *src)
 {
-	if (src_size >= 1)
-		dst[0] = src[0];
+	if (src->begin_p + src->s_size - src->head >= 1)
+	{
+		dst->head--;
+		dst->head[0] = src->head[0];
+		src->head[0] = 0;
+		src->head++;
+	}
 }
 
-static void	print_msg_push(t_stack dst, t_stack src, const char *msg)
+static void	print_msg_push(t_stack *dst, t_stack *src, const char *msg)
 {
 	write(1, msg, ft_strlen(msg));
-	push(dst.stack, src.stack, src.s_size);
+	push(dst, src);
 }
 
-void	pa(t_stack a, t_stack b)
+void	pa(t_stack *a, t_stack *b)
 {
-	print_msg_push(a, b, "sa\n");
+	print_msg_push(a, b, "pa\n");
 }
 
-void	pb(t_stack b, t_stack a)
+void	pb(t_stack *b, t_stack *a)
 {
-	print_msg_push(b, a, "sb\n");
+	print_msg_push(b, a, "pb\n");
 }
