@@ -1,11 +1,12 @@
 #include "push_swap.h"
 
-static void rotate(int arr[], unsigned int arr_size)
+static void rotate(t_stack_node arr[], unsigned arr_size)
 {
-	int				tmp;
+	t_stack_node	tmp;
 	unsigned int	i;
 
-	tmp = 0;
+	if (arr_size == 0)
+		return ;
 	i = 0;
 	tmp = arr[0];
 	while (i++ < arr_size - 1)
@@ -16,7 +17,7 @@ static void rotate(int arr[], unsigned int arr_size)
 static void print_rotate(t_stack stack, const char *msg)
 {
 	write(1, msg, ft_strlen(msg));
-	rotate(stack.head, stack.s_size);
+	rotate(stack.head, stack.begin_p + stack.s_size - stack.head);
 }
 
 void	rr(t_stack a, t_stack b)

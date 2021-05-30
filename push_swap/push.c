@@ -7,7 +7,7 @@ static void	push(t_stack *dst, t_stack *src)
 	{
 		dst->head--;
 		dst->head[0] = src->head[0];
-		src->head[0] = 0;
+		ft_bzero(src->head, sizeof(t_stack_node));
 		src->head++;
 	}
 }

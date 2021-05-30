@@ -1,8 +1,8 @@
 #include "push_swap.h"
 
-void	swap(int arr[], unsigned int arr_size)
+void	swap(t_stack_node arr[], unsigned int arr_size)
 {
-	int tmp;
+	t_stack_node	tmp;
 
 	if (arr_size < 1)
 		return ;

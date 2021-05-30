@@ -1,11 +1,10 @@
 #include "push_swap.h"
 
-static void reverse_rotate(int arr[], unsigned int arr_size)
+static void reverse_rotate(t_stack_node arr[], unsigned int arr_size)
 {
-	int				tmp;
+	t_stack_node	tmp;
 	unsigned int	i;
 
-	tmp = 0;
 	i = 0;
 	tmp = arr[arr_size - 1];
 	while (--arr_size > 0)
@@ -16,7 +15,7 @@ static void reverse_rotate(int arr[], unsigned int arr_size)
 static void print_rrotate(t_stack stack, const char *msg)
 {
 	write(1, msg, ft_strlen(msg));
-	reverse_rotate(stack.head, stack.s_size);
+	reverse_rotate(stack.head, stack.begin_p + stack.s_size - stack.head);
 }
 
 void	rrr(t_stack a, t_stack b)

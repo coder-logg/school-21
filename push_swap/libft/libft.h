@@ -69,12 +69,15 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), void (*d)(void *));
 
 // ========================================================
 // ================== My functions ========================
-char			*find_chrs_in_str(const char *s, char *chrs);
+char			*find_chrs_in_str(char *s, char *chrs);
 void			*ft_setmem(void *s, int c, size_t len);
 char			*itoa_withno_malloc(char *dst, long long n);
 int				digit_nbr(long n);
 unsigned long	get_unsigned(long n);
 long			max(long a, long b);
 void			for_each_chr_in_str(char *str, char ( *f)(char));
+long			min(long a, long b);
+char			*skip_chars(const char *str, const char *chars);
+int				str_only_chr(char *s, char *chrs);
 
 #endif
