@@ -1,15 +1,18 @@
 # School-21 projects
-Проекты основного обычения школы 21.
-
+Проекты основного обычения школы-21.
 ## Полезные ссылки
 [#coding_wiki](https://www.notion.so/coding_wiki-1d8b8bc675f5426db90a02dd22324ac8)\
 [faq школы 21](https://github.com/daniiomir/faq_for_school_21)\
 [полное руководство по make](http://linux.yaroslavl.ru/docs/prog/gnu_make_3-79_russian_manual.html)\
 [таблица символов ascii](https://snipp.ru/handbk/table-ascii)\
-[ip калькулятор](https://ip-calculator.ru/#!ip=240.19.3.205/12)
-
+[ip калькулятор](https://ip-calculator.ru/#!ip=240.19.3.205/12)\
+[операторы си](https://ru.wikipedia.org/wiki/%D0%9E%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%BE%D1%80%D1%8B_%D0%B2_C_%D0%B8_C%2B%2B)\
+[adm](https://21-school.ru/adm)\
 **Экзамены**:\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[первый](https://github.com/Glagan/42-exam-rank-02)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[первый](https://github.com/Glagan/42-exam-rank-02)\
+**Github'ы студенитов школы-21**:\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[evgenkarlson](https://github.com/evgenkarlson)\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[dashawebb](https://github.com/dashawebb)
 ## Тестеры
 * libft
     * [war-machine](https://github.com/ska42/libft-war-machine)
@@ -31,3 +34,14 @@
     * [42TESTERS-PRINTF](https://github.com/Mazoise/42TESTERS-PRINTF)
 * netwhat
     * [netwhat42-train](https://github.com/adblanc/netwhat42-train)
+
+## Система типов в си (32 разрада - актуально для маков школы-21)
+
+|тип           |размер<br>в байтах|размер<br>в битах|другое название| диапозон|
+|:------------:|:----------------:|:---------------:|:-------------:|:-------:|
+| int          |4                 |             32  ||-2147483648 ... 2147483647|
+| long         |8                 |                 |||
+| long long    |                  |                 |||
+
+## Интересное
+* [манчкин](https://www.doors-treasures.ru/)
