@@ -16,6 +16,7 @@ static void rotate(t_stack_node arr[], unsigned arr_size)
 
 static void print_rotate(t_stack stack, const char *msg)
 {
+	fflush(stdout);
 	write(1, msg, ft_strlen(msg));
 	rotate(stack.head, stack.begin_p + stack.s_size - stack.head);
 }

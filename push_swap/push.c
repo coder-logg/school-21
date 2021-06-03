@@ -6,7 +6,7 @@ static void	push(t_stack *dst, t_stack *src)
 	if (src->begin_p + src->s_size - src->head >= 1)
 	{
 		dst->head--;
-		dst->head[0] = src->head[0];
+		*(dst->head) = *(src->head);
 		ft_bzero(src->head, sizeof(t_stack_node));
 		src->head++;
 	}
@@ -14,6 +14,7 @@ static void	push(t_stack *dst, t_stack *src)
 
 static void	print_msg_push(t_stack *dst, t_stack *src, const char *msg)
 {
+	fflush(stdout);
 	write(1, msg, ft_strlen(msg));
 	push(dst, src);
 }

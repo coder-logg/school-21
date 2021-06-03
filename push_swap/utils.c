@@ -9,23 +9,18 @@ int get_short_way(t_stack s, unsigned pos)
 }
 
 //  a->s_size / 2 + 1
-void push_b(t_stack *a, t_stack *b, t_indexes *indxs, unsigned len)
+void push_b(t_stack *a, t_stack *b, t_indexes *indxs, unsigned mid)
 {
 	unsigned	i;
 	unsigned	pb_counter;
 
 	i = 0;
 	pb_counter = 0;
-	while (pb_counter < len && i < a->s_size)
+	while (pb_counter < mid && i < a->s_size)
 	{
-		if (a->head->index <= len || a->head->index == indxs->next)
+		if (a->head->index <= mid || a->head->index == indxs->next)
 		{
 			pb(b, a);
-			while (a->head->index == indxs->next)
-			{
-				ra(*a);
-				(indxs->next)++;
-			}
 			pb_counter++;;
 		}
 		else
@@ -62,18 +57,27 @@ void do_index(t_stack *a)
 
 unsigned count_sorted(t_stack_node *start, unsigned len, char reverse)
 {
-	unsigned i;
+	unsigned	i;
+	int			tmp;
 
 	i = 0;
 	if (reverse)
 	{
-		while (len > i && start[i].val > start[i + 1].val)
+		tmp = start[i++].val;
+		while (len > i && tmp > start[i].val)
+		{
+			tmp = start[i].val;
 			i++;
+		}
 	}
 	else
 	{
-		while (len > i && start[i].val < start[i + 1].val)
+		tmp = start[i++].val;
+		while (len > i && start[i].val > tmp)
+		{
+			tmp = start[i].val;
 			i++;
+		}
 	}
 	return (i);
 }
@@ -81,5 +85,5 @@ unsigned count_sorted(t_stack_node *start, unsigned len, char reverse)
 char	is_stack_sorted(t_stack s)
 {
 	return (count_sorted(s.head, s.begin_p + s.s_size - s.head, 0)
-			== s.begin_p + s.s_size - s.head);
+			== (unsigned)(s.begin_p + s.s_size - s.head));
 }

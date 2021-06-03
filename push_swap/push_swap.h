@@ -5,6 +5,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+#include <stdio.h> // todo remove
+
 typedef struct s_stack_node
 {
 	int		val;
@@ -44,6 +46,6 @@ int		get_short_way(t_stack s, unsigned pos);
 void	do_index(t_stack *a);
 unsigned count_sorted(t_stack_node *start, unsigned len, char reverse);
 char	is_stack_sorted(t_stack s);
-void push_b(t_stack *a, t_stack *b, t_indexes *indxs, unsigned len);
+void push_b(t_stack *a, t_stack *b, t_indexes *indxs, unsigned mid);
 
 #endif
