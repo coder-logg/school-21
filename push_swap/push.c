@@ -14,7 +14,8 @@ static void	push(t_stack *dst, t_stack *src)
 
 static void	print_msg_push(t_stack *dst, t_stack *src, const char *msg)
 {
-	fflush(stdout);
+//	todo удалить
+//	fflush(stdout);
 	write(1, msg, ft_strlen(msg));
 	push(dst, src);
 }

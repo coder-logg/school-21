@@ -1,15 +1,19 @@
 #include "push_swap.h"
 
-int get_short_way(t_stack s, unsigned pos)
+int	get_short_way(t_stack s, unsigned i)
 {
-	if (pos > s.s_size / 2)
+	unsigned a = get_node_by_index(s, i) - s.head;
+	unsigned b = (get_stack_len(s) / 2 + get_stack_len(s) % 2) - 1;
+	if (a > b)
 		return (-1);
-	else
+	else if (a < b)
 		return (1);
+	else
+		return (0);
 }
 
 //  a->s_size / 2 + 1
-void push_b(t_stack *a, t_stack *b, t_indexes *indxs, unsigned mid)
+void	push_b(t_stack *a, t_stack *b, t_indexes *indxs, unsigned mid)
 {
 	unsigned	i;
 	unsigned	pb_counter;
@@ -55,35 +59,12 @@ void do_index(t_stack *a)
 	}
 }
 
-unsigned count_sorted(t_stack_node *start, unsigned len, char reverse)
+unsigned get_stack_len(t_stack stack)
 {
-	unsigned	i;
-	int			tmp;
-
-	i = 0;
-	if (reverse)
-	{
-		tmp = start[i++].val;
-		while (len > i && tmp > start[i].val)
-		{
-			tmp = start[i].val;
-			i++;
-		}
-	}
-	else
-	{
-		tmp = start[i++].val;
-		while (len > i && start[i].val > tmp)
-		{
-			tmp = start[i].val;
-			i++;
-		}
-	}
-	return (i);
+	return (stack.begin_p + stack.s_size - stack.head);
 }
 
-char	is_stack_sorted(t_stack s)
-{
-	return (count_sorted(s.head, s.begin_p + s.s_size - s.head, 0)
-			== (unsigned)(s.begin_p + s.s_size - s.head));
-}
+//unsigned get_short_way_nbr_oper(t_stack s, unsigned i)
+//{
+//
+//}
