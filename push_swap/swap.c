@@ -1,8 +1,8 @@
 #include "push_swap.h"
 
-void	swap(t_stack_node arr[], unsigned int arr_size)
+void	swap(t_snode arr[], unsigned int arr_size)
 {
-	t_stack_node	tmp;
+	t_snode	tmp;
 
 	if (arr_size < 1)
 		return ;
@@ -17,14 +17,14 @@ void	swap(t_stack_node arr[], unsigned int arr_size)
 void	ss(t_stack a, t_stack b)
 {
 	write(1, "ss\n", 3);
-	swap(a.head, a.s_size);
-	swap(b.head, b.s_size);
+	swap(a.head, a.size);
+	swap(b.head, b.size);
 }
 
 void	print_swap(t_stack stack, const char *msg)
 {
 	write(1, msg, ft_strlen(msg));
-	swap(stack.head, stack.s_size);
+	swap(stack.head, stack.size);
 }
 
 void	sb(t_stack b)

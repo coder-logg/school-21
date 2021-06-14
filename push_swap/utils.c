@@ -1,31 +1,33 @@
 #include "push_swap.h"
 
-int	get_short_way(t_stack s, unsigned i)
+int	get_short_way(t_stack s, unsigned int i)
 {
-	unsigned a = get_node_by_index(s, i) - s.head;
-	unsigned b = (get_stack_len(s) / 2 + get_stack_len(s) % 2) - 1;
+	unsigned int	a;
+	unsigned int	b;
+
+	a = get_node(s, i) - s.head;
+	b = (get_stack_len(s) / 2 + get_stack_len(s) % 2) - 1;
 	if (a > b)
-		return (-1);
-	else if (a < b)
-		return (1);
-	else
-		return (0);
+	{
+		b = s.size;
+		return ((b - a) * -1);
+	}
+	return ((b - a));
 }
 
-//  a->s_size / 2 + 1
-void	push_b(t_stack *a, t_stack *b, t_indexes *indxs, unsigned mid)
+void	push_min_half_to_b(t_stack *a, t_stack *b, t_indexes *indxs)
 {
-	unsigned	i;
-	unsigned	pb_counter;
+	unsigned int	i;
+	unsigned int	pb_counter;
 
 	i = 0;
 	pb_counter = 0;
-	while (pb_counter < mid && i < a->s_size)
+	while (i <= a->size - indxs->next && a->head->flag == 0)
 	{
-		if (a->head->index <= mid || a->head->index == indxs->next)
+		if (a->head->index <= indxs->middle)
 		{
 			pb(b, a);
-			pb_counter++;;
+			pb_counter++;
 		}
 		else
 			ra(*a);
@@ -33,18 +35,18 @@ void	push_b(t_stack *a, t_stack *b, t_indexes *indxs, unsigned mid)
 	}
 }
 
-void do_index(t_stack *a)
+void	do_index(t_stack *a)
 {
-	unsigned int i;
-	unsigned int j;
-	t_stack_node *min;
+	unsigned int	i;
+	unsigned int	j;
+	t_snode			*min;
 
 	i = 0;
 	min = a->head;
-	while (i < a->s_size)
+	while (i < a->size)
 	{
 		j = 0;
-		while (j < a->s_size)
+		while (j < a->size)
 		{
 			if (a->head[j].index == 0)
 			{
@@ -59,12 +61,22 @@ void do_index(t_stack *a)
 	}
 }
 
-unsigned get_stack_len(t_stack stack)
+t_snode	*get_max_min_elem(t_stack stack, t_snode *start,
+							 long (f)(long, long), unsigned int len)
 {
-	return (stack.begin_p + stack.s_size - stack.head);
+	unsigned int	i;
+	unsigned int	tmp;
+
+	i = 0;
+	if (start == stack.begin_p + stack.size)
+		return (NULL);
+	tmp = start->index;
+	while (++i < len)
+		tmp = f(tmp, (start + i)->index);
+	return (get_node(stack, tmp));
 }
 
-//unsigned get_short_way_nbr_oper(t_stack s, unsigned i)
-//{
-//
-//}
+unsigned int	get_stack_len(t_stack stack)
+{
+	return (stack.begin_p + stack.size - stack.head);
+}

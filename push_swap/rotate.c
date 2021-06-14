@@ -1,8 +1,8 @@
 #include "push_swap.h"
 
-static void rotate(t_stack_node arr[], unsigned arr_size)
+static void	rotate(t_snode arr[], unsigned int arr_size)
 {
-	t_stack_node	tmp;
+	t_snode			tmp;
 	unsigned int	i;
 
 	if (arr_size == 0)
@@ -14,17 +14,16 @@ static void rotate(t_stack_node arr[], unsigned arr_size)
 	arr[i - 1] = tmp;
 }
 
-static void print_rotate(t_stack stack, const char *msg)
+static void	print_rotate(t_stack stack, const char *msg)
 {
-	fflush(stdout);
 	write(1, msg, ft_strlen(msg));
-	rotate(stack.head, stack.begin_p + stack.s_size - stack.head);
+	rotate(stack.head, stack.begin_p + stack.size - stack.head);
 }
 
 void	rr(t_stack a, t_stack b)
 {
 	print_rotate(a, "ss\n");
-	rotate(b.head, b.s_size);
+	rotate(b.head, b.size);
 }
 
 void	ra(t_stack a)

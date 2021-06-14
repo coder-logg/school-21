@@ -1,21 +1,18 @@
 #include "push_swap.h"
 
-// note:  push - берет первый элемент вверху src и поместите его вверху dst. Ничего не делать, если src пусто
 static void	push(t_stack *dst, t_stack *src)
 {
-	if (src->begin_p + src->s_size - src->head >= 1)
+	if (src->begin_p + src->size - src->head >= 1)
 	{
 		dst->head--;
 		*(dst->head) = *(src->head);
-		ft_bzero(src->head, sizeof(t_stack_node));
+		ft_bzero(src->head, sizeof(t_snode));
 		src->head++;
 	}
 }
 
 static void	print_msg_push(t_stack *dst, t_stack *src, const char *msg)
 {
-//	todo удалить
-//	fflush(stdout);
 	write(1, msg, ft_strlen(msg));
 	push(dst, src);
 }

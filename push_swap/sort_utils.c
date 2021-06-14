@@ -1,31 +1,9 @@
 #include "push_swap.h"
 
-
-// когда func = min проверяется на отсортированность,
-// func = max на обратную отсортированность
-char is_stack_sorted_cycle(t_stack s, long (*func)(long, long))
+unsigned int	count_sorted(t_snode *start, unsigned int len, char reverse)
 {
-	t_stack_node	*max_node;
+	unsigned int	i;
 	int				tmp;
-	unsigned		i;
-
-	max_node = get_max_min_elem(s, s.head, func, s.begin_p + s.s_size - s.head);
-	i = max_node - s.head + 1;
-	while (s.head[i].index != max_node->index)
-	{
-		tmp = s.head[i++].val;
-		if (s.head + i != s.begin_p + s.s_size)
-			i = 0;
-		if (func(s.head[i].val, tmp) == tmp)
-			return (0);
-	}
-	return (1);
-}
-
-unsigned count_sorted(t_stack_node *start, unsigned len, char reverse)
-{
-	unsigned	i;
-	int			tmp;
 
 	i = 0;
 	if (reverse)
@@ -49,13 +27,43 @@ unsigned count_sorted(t_stack_node *start, unsigned len, char reverse)
 	return (i);
 }
 
-char	is_stack_sorted(t_stack s)
+void	rot_by_short_way(t_stack *b, t_snode *elm, int prefix)
 {
-	return (count_sorted(s.head, s.begin_p + s.s_size - s.head, 0)
-			== (s.begin_p + s.s_size - s.head));
+	int	sht_way;
+	int	nbr;
+
+	sht_way = get_short_way(*b, elm->index);
+	nbr = b->head + get_stack_len(*b) - elm - prefix;
+	if ((sht_way < 0)
+		&& get_unsigned(nbr) != get_stack_len(*b))
+		few_rotate(*b, rrb, get_unsigned(nbr));
+	else if (sht_way >= 0 && elm - b->head >= 0 && get_stack_len(*b) != 1)
+		few_rotate(*b, rb, elm - b->head + prefix);
 }
 
-//int check_sorting(t_stack s)
-//{
-//
-//}
+t_snode	*find_prev(t_stack stack, unsigned int index)
+{
+	unsigned int	i;
+	t_snode			*prev;
+	t_snode			previous;
+
+	i = 0;
+	previous = *(stack.head);
+	previous.index = 0;
+	prev = &previous;
+	while (i < get_stack_len(stack))
+	{
+		if (prev->index < stack.head[i].index && stack.head[i].index < index)
+			prev = stack.head + i;
+		i++;
+	}
+	if (prev->index == 0)
+		return (NULL);
+	return (prev);
+}
+
+char	is_stack_sorted(t_stack s)
+{
+	return (count_sorted(s.head, s.begin_p + s.size - s.head, 0)
+		== (s.begin_p + s.size - s.head));
+}
