@@ -31,7 +31,7 @@ t_snode	*get_node(t_stack s, unsigned int index)
 	unsigned int	i;
 
 	i = 0;
-	while (i < s.begin_p + s.size - s.head)
+	while (i < get_stack_len(s))
 	{
 		if (s.head[i].index == index)
 			return (s.head + i);

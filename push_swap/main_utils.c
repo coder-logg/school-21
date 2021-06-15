@@ -58,6 +58,13 @@ void	if_one_arg(int argc, char ***argv, int *i)
 		if (!check_digits(*(*argv)) && ft_strchr(**argv, ' ') == NULL)
 			error("Error\n");
 		(*argv) = ft_split((*argv)[0], ' ');
+		if (*argv == NULL)
+			error("Error\n");
+		if (**argv == NULL)
+		{
+			free_splited_argv(*argv);
+			error("Error\n");
+		}
 		while ((*argv)[(*i)])
 			(*i)++;
 	}

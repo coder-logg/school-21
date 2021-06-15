@@ -15,8 +15,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (ft_strchr(set, s1[end]) != NULL && s1 + front != s1 + end)
 		end--;
 	res = (char *)malloc(sizeof(char) * (end - front + 2));
-	if (end == front)
-		end--;
 	if (res != NULL)
 		ft_strlcpy(res, s1 + front, end - front + 2);
 	return (res);

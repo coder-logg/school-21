@@ -99,8 +99,11 @@ char	**ft_split(char const *s, char c)
 	size_t	*del_poss;
 	char	**res;
 	char	*s_trimed;
+	char	str_c[2];
 
-	s_trimed = ft_strtrim(s, &c);
+	str_c[0] = c;
+	str_c[1] = 0;
+	s_trimed = ft_strtrim(s, str_c);
 	if (s_trimed == NULL)
 		return (NULL);
 	if (*s_trimed == '\0')

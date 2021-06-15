@@ -66,6 +66,6 @@ int	main(int argc, char **argv)
 		freee(argv, &a, &b, i);
 	}
 	else
-		error("недостаточно аргументов");
+		error("Pass at least one argument to the program.\n");
 	return (0);
 }
