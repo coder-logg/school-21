@@ -27,10 +27,10 @@ void	push_b_elems_with_same_flag(t_stack *a, t_stack *b, t_indexes *nbrs)
 		{
 			prev = find_prev(*b, a->head->index);
 			if (prev != NULL)
-				rot_by_short_way(b, prev, 1);
+				rot_by_shrt_way(b, prev, 1, 'b');
 			else if (get_stack_len(*b) >= 2)
-				rot_by_short_way(b, get_max_min_elem(*b, b->head, min,
-						get_stack_len(*b)), 0);
+				rot_by_shrt_way(b, get_max_min_elem(*b, b->head, min,
+						get_stack_len(*b)), 0, 'b');
 			pb(b, a);
 		}
 	}
@@ -61,11 +61,8 @@ void	do_sort(t_stack *a, t_stack *b, t_indexes *nbrs)
 		{
 			push_b_elems_with_same_flag(a, b, nbrs);
 			min_node = get_max_min_elem(*b, b->head, min, get_stack_len(*b));
-			if (min_node != NULL)
-				rot_by_short_way(b, min_node, 0);
-			else if (get_stack_len(*b) >= 2)
-				rot_by_short_way(b, get_max_min_elem((*b), b->head, min,
-						get_stack_len(*b)), 0);
+			if (get_stack_len(*b) >= 2)
+				rot_by_shrt_way(b, min_node, 0, 'b');
 			nbrs->next += get_stack_len((*b));
 			flush_b_to_end_a(b, a);
 		}
@@ -74,7 +71,6 @@ void	do_sort(t_stack *a, t_stack *b, t_indexes *nbrs)
 	}
 }
 
-// todo сортировка при например [2, 3, 4, 1], когда нужно только сдвинуть
 void	sort(t_stack a, t_stack b)
 {
 	t_indexes	nbrs;
@@ -84,9 +80,12 @@ void	sort(t_stack a, t_stack b)
 	nbrs.maxm = a.size;
 	nbrs.middle = nbrs.maxm / 2 + nbrs.next;
 	nbrs.flag = 1;
+	do_index(&a);
+	if (is_stack_sorted_cycle(a))
+		rot_by_shrt_way(&a, get_max_min_elem(a, a.head, min, get_stack_len(a)),
+			0, 'a');
 	if (is_stack_sorted(a))
 		return ;
-	do_index(&a);
 	if (a.size == 2 || (a.size >= 3 && a.size <= 6))
 	{
 		sort_short(&a, &b, &nbrs);

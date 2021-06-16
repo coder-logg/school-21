@@ -60,7 +60,7 @@ void			push_any(t_stack *src, t_stack *dst,
 					void (push)(t_stack *, t_stack *), unsigned int len);
 unsigned int	get_stack_len(t_stack stack);
 t_snode			*find_prev(t_stack stack, unsigned int index);
-void			rot_by_short_way(t_stack *b, t_snode *elm, int prefix);
+void			rot_by_shrt_way(t_stack *b, t_snode *elm, int prefx, char snm);
 void			pa_min_half(t_stack *src, t_stack *dst, unsigned int mid,
 					t_indexes *nbrs);
 int				rot_next_in_head_to_end(const t_stack *a, t_indexes *nbrs);
@@ -69,5 +69,6 @@ void			if_one_arg(int argc, char ***argv, int *i);
 void			freee(char **argv, t_stack *a, t_stack *b, int i);
 void			error(const char *msg);
 char			check_digits(char *str);
+char			is_stack_sorted_cycle(t_stack s);
 
 #endif

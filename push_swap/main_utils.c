@@ -6,6 +6,8 @@ t_stack	init_stack(unsigned int size)
 
 	res.size = size;
 	res.begin_p = ft_calloc(size, sizeof(t_snode));
+	if (res.begin_p == NULL)
+		error("Malloc error\n");
 	res.head = res.begin_p + size;
 	return (res);
 }
@@ -59,7 +61,7 @@ void	if_one_arg(int argc, char ***argv, int *i)
 			error("Error\n");
 		(*argv) = ft_split((*argv)[0], ' ');
 		if (*argv == NULL)
-			error("Error\n");
+			error("Malloc error\n");
 		if (**argv == NULL)
 		{
 			free_splited_argv(*argv);

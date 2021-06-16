@@ -20,7 +20,7 @@ HEADER	= libft.h
 	$(CC) $(FLAGS) -c $<
 
 (%.o): %.o
-	ar rc $@ $<
+	ar rc $@ $?
 
 $(NAME): $(OBJS) $(NAME)($(OBJS))
 

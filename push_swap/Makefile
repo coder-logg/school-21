@@ -1,5 +1,4 @@
 NAME	=	push_swap
-LIBFT   =	libft/libft.a
 SRCS	=	push.c push_swap.c reverse_rotate.c rotate.c swap.c sort.c utils.c \
  			utils_second.c sort_utils.c sort_short.c utils_third.c main_utils.c
 OBJS	=	$(SRCS:.c=.o)
@@ -9,19 +8,16 @@ HEADER	=	push_swap.h
 LIBFTMAKE =	$(MAKE) -C libft/
 CC		=	gcc
 
-all: $(NAME)
+all: libft $(NAME)
 
 %.o: %.c $(HEADER)
 	$(CC) $(FLAGS) -c $<
 
-(%.o): %.o
-	ar rc $@ $<
-
-$(LIBFT):
+libft:
 	$(LIBFTMAKE)
 
-$(NAME): $(LIBFT) $(OBJS)
-	$(CC) -o $@ $(LIBFT) $(OBJS)
+$(NAME): $(OBJS) libft/libft.a
+	$(CC) -o $@ $(OBJS) libft/libft.a
 
 clean:
 	rm -f  $(OBJS)
@@ -33,4 +29,4 @@ fclean:
 
 re: fclean all
 
-.PHONY:	all clean fclean re
+.PHONY:	all clean fclean re libft
