@@ -3,4 +3,8 @@
 int main(void)
 {
 	ft_putnbr_fd(getpid(), 1);
+//	while ()
+//    {
+//
+//    }
 }
