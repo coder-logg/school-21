@@ -1,35 +1,36 @@
 NAME	=	minitalk
-SRCS	=	utils.c
-SERVER_SRC = server.c $(SRCS)
-CLIENT_SRC = client.c $(SRCS)
+SERVER_SRC = server.c
+CLIENT_SRC = client.c
+SERVER_OBJ = $(SERVER_SRC:.c=.o)
+CLIENT_OBJ = $(CLIENT_SRC:.c=.o)
 OBJS	=	$(SERVER_SRC:.c=.o) $(CLIENT_SRC:.c=.o)
 CC		=	gcc
 FLAGS	=	-Wall -Wextra -Werror
 HEADER	=	minitalk.h
-#LIBFTMAKE =	$(MAKE) -C libft/
+LIBFTMAKE =	$(MAKE) -C libft/
 CC		=	gcc
 
-all: client server
+all: libft client server
 
 %.o: %.c $(HEADER)
 	$(CC) $(FLAGS) -c $<
 
-server: $(SERVER_SRC:.c=.o)
-	$(CC) -o $@ $^
+libft:
+	$(LIBFTMAKE)
 
-client: $(CLIENT_SRC:.c=.o)
-	$(CC) -o $@ $^
+server:$(SERVER_OBJ)
+	$(CC) -o $@ $(SERVER_OBJ) libft/libft.a
 
-$(NAME): $(OBJS) libft/libft.a
-	$(CC) -o $@ $(OBJS) libft/libft.a
+client:$(CLIENT_OBJ)
+	$(CC) -o $@ $(CLIENT_OBJ) libft/libft.a
 
 clean:
 	rm -f  $(OBJS)
-#$(LIBFTMAKE) clean
+	$(LIBFTMAKE) clean
 
 fclean:
-	rm -f $(NAME) $(OBJS)
-#$(LIBFTMAKE) fclean
+	rm -f client server $(OBJS)
+	$(LIBFTMAKE) fclean
 
 re: fclean all
 
