@@ -4,6 +4,7 @@
 # include "../libft/libft.h"
 # include <unistd.h>
 # include <fcntl.h>
+# include <math.h>
 
 typedef struct s_point
 {
@@ -34,8 +35,9 @@ void	print_points(t_point **points, unsigned nbr_lines, unsigned nbr_columns); /
 void	free_split(char **splited_line, unsigned int elm_in_line);
 t_map	read_map(const char *file_name);
 void	*get_window();
-void prepare_window(t_window *window);
-int key_event_listener(int key, t_window *window);
-int	ft_close(void *param);
+void 	prepare_window(t_window *window);
+int 	key_event_listener(int key, t_window *window);
+int		ft_close(void *param);
+void	draw(t_map map, t_window window);
 
 #endif
