@@ -1,30 +1,35 @@
 #include "fdf.h"
 
+void	init_map(t_map *map)
+{
+	ft_bzero(&map, sizeof(map));
+	map->zoom = 1;
+	map->angle = 0.8;
+}
+
 void	parse_line_for_points(char *line, t_map *map)
 {
-	char				**splited_line;
-	static unsigned int	y;
-	unsigned int		x;
+	char		**splited_line;
+	static int	y;
+	int			x;
 
 	splited_line = ft_split(line, ' ');
 	x = 0;
-	*(map->matrix + y) = ft_calloc(map->m_width, sizeof(t_point));
-	while(x < map->m_width)
+	*(map->matrix + y) = ft_calloc(map->width, sizeof(t_point));
+	while(x < (int)map->width)
 	{
 		init_point(*(map->matrix + y) + x, x, y, ft_atoi(splited_line[x]));
 		x++;
 	}
 	y++;
-	free_split(splited_line, map->m_width);
+	free_split(splited_line, map->width);
 }
 
 void	parse_map(int fd, t_map *map)
 {
 	char			*line;
-	unsigned int	i;
 	int				gnlres;
 
-	i = 1;
 	gnlres = get_next_line(fd, &line);
 	while (gnlres > 0)
 	{
@@ -43,7 +48,7 @@ t_map	read_map(const char *file_name)
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
 		ft_error("File open error\n");
-	map.matrix = ft_calloc(set_map_size(fd, &map)->m_height, sizeof(t_point *));
+	map.matrix = ft_calloc(set_map_size(fd, &map)->height, sizeof(t_point *));
 	close(fd);
 	fd = open(file_name, O_RDONLY);
 	parse_map(fd, &map);

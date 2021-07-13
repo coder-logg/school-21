@@ -20,6 +20,15 @@ void	print_points(t_point **points, unsigned nbr_lines, unsigned nbr_columns)
 	}
 }
 
+void clean_matrix(t_point **matrix, unsigned int height)
+{
+	while (height > 0)
+	{
+		free(matrix[height - 1]);
+		height--;
+	}
+}
+
 void free_split(char **splited_line, unsigned int elm_in_line)
 {
 	while (elm_in_line > 0)
@@ -52,18 +61,18 @@ t_map	*set_map_size(int fd, t_map *map)
 	char			*line;
 	char			**splited_line;
 
-	map->m_width = 0;
-	map->m_height = 1;
+	map->width = 0;
+	map->height = 1;
 	gnlres = get_next_line(fd, &line);
 	splited_line = ft_split(line, ' ');
-	while (splited_line[map->m_width])
-		map->m_width++;
-	free_split(splited_line, map->m_width);
+	while (splited_line[map->width])
+		map->width++;
+	free_split(splited_line, map->width);
 	while (gnlres > 0)
 	{
 		free(line);
 		gnlres = get_next_line(fd, &line);
-		map->m_height++;
+		map->height++;
 	}
 	free(line);
 	return (map);
