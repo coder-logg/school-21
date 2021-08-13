@@ -20,6 +20,30 @@ void	print_points(t_point **points, unsigned nbr_lines, unsigned nbr_columns)
 	}
 }
 
+void for_each_points_in_map(t_map map, int nbr, long (*math_oper)(long, long),
+							char change_mask)
+{
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	while (i < map.height)
+	{
+		j = 0;
+		while (j < map.width)
+		{
+			if (change_mask & 1)
+				map.matrix[i][j].x = math_oper(map.matrix[i][j].x, nbr);
+			if (change_mask & 2)
+				map.matrix[i][j].y = math_oper(map.matrix[i][j].y, nbr);
+			if (change_mask & 4)
+				map.matrix[i][j].z = math_oper(map.matrix[i][j].z, nbr);
+			j++;
+		}
+		i++;
+	}
+}
+
 void clean_matrix(t_point **matrix, unsigned int height)
 {
 	while (height > 0)
@@ -39,20 +63,11 @@ void free_split(char **splited_line, unsigned int elm_in_line)
 	free(splited_line);
 }
 
-void	init_point(t_point *point_to_ini, unsigned int x, unsigned int y, int z)
+void	init_point(t_point *point_to_ini, int x, int y, int z)
 {
 	point_to_ini->x = x;
 	point_to_ini->y = y;
 	point_to_ini->z = z;
-}
-
-t_point	*create_point(unsigned int x, unsigned int y, int z)
-{
-	t_point	*new_point;
-
-	new_point = malloc(sizeof(t_point));
-	init_point(new_point, x, y, z);
-	return (new_point);
 }
 
 t_map	*set_map_size(int fd, t_map *map)

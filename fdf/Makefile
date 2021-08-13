@@ -1,6 +1,7 @@
 NAME	=	fdf
 SRCDIR	=	src/
-SRCS	=	$(addprefix $(SRCDIR), fdf.c fdf_utils.c listeners.c read_map.c prepare_window.c draw.c math_oper.c)
+SRCS	=	$(addprefix $(SRCDIR),  fdf.c fdf_utils.c listeners.c read_map.c \
+ 			 draw.c math_oper.c draw_line.c rotation.c)
 OBJS	=	$(SRCS:.c=.o)
 CC		=	gcc
 FLAGS	=	-Wall -Wextra -Werror
