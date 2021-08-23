@@ -1,5 +1,5 @@
-#ifndef FDF_H
-# define FDF_H
+#ifndef FDF_BONUS_H
+# define FDF_BONUS_H
 # include "../minilibx_macos/mlx.h"
 # include "../libft/libft.h"
 # include <unistd.h>
@@ -31,8 +31,12 @@ typedef struct s_map
 	unsigned int	height;
 	int				zoom;
 	double			angle_iso;
+	double			angle_x;
+	double			angle_y;
+	double			angle_z;
 	t_point			shift;
 	double			z_offset;
+	char			projection;
 	t_point			*central_point;
 	t_point			**matrix;
 }				t_map;
@@ -69,6 +73,9 @@ void	free_split(char **splited_line, unsigned int elm_in_line);
 void	read_map(const char *file_name, t_map *map);
 int		key_event_listener(int key, t_fdf *fdf);
 void	do_isometric(t_point *point, double angle);
+void	rotate_x(t_point *point, double angle);
+void	rotate_y(t_point *point, double angle);
+void	rotate_z(t_point *point, double angle);
 int		ft_close(t_map *map);
 void	draw(t_fdf fdf);
 void	clean_matrix(t_point **matrix, unsigned int height);

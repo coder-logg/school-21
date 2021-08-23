@@ -1,4 +1,4 @@
-﻿#include "libft.h"
+#include "libft.h"
 #define BUFFER_SIZE 100
 
 static char	*ft_strjoinm(char const *s1, char const *s2)

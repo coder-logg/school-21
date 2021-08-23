@@ -1,4 +1,4 @@
-#include "fdf.h"
+#include "fdf_bonus.h"
 
 void	parse_line_for_points(char *line, t_map *map)
 {

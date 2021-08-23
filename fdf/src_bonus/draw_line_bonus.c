@@ -1,4 +1,4 @@
-#include "fdf.h"
+#include "fdf_bonus.h"
 
 static void	put_pixel(t_fdf fdf, int x, int y, int color)
 {
@@ -33,7 +33,11 @@ static void	apply_coeffs_to_point(t_point *point, t_fdf fdf)
 	zoom_one(point, fdf.map->zoom);
 	point->x -= (fdf.map->width * fdf.map->zoom) / 2;
 	point->y -= (fdf.map->height * fdf.map->zoom) / 2;
-	do_isometric(point, fdf.map->angle_iso);
+	rotate_x(point, fdf.map->angle_x);
+	rotate_y(point, fdf.map->angle_y);
+	rotate_z(point, fdf.map->angle_z);
+	if (!(fdf.map->projection))
+		do_isometric(point, fdf.map->angle_iso);
 	point->x += fdf.map->shift.x * fdf.map->zoom;
 	point->y += fdf.map->shift.y * fdf.map->zoom;
 	point->x += (WINDOW_WIDTH / 2) - fdf.map->central_point->x;
