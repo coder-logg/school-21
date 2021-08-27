@@ -11,6 +11,15 @@
 #define ERR_MSG "Usage: ./philo number_of_philosophers time_to_die"\
 " time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]\n"
 
+typedef enum e_errors
+{
+	MALLOC_ERROR,
+	INPUT_DATA_ERROR,
+	INPUT_FORMAT_ERROR,
+	MUTEX_INIT_ERROR,
+	PTHREAD_CREATE_ERROR
+}			t_errors;
+
 typedef enum e_pstates
 {
 	EATING,
@@ -54,9 +63,12 @@ long	ft_atoi(const char *str);
 void	*ft_calloc(size_t nmemb, size_t size);
 int		check_args(int argc, char **argv);
 void	*life(void *arg);
-unsigned long int	get_time(void);
+long long int	get_time(void);
 void    go_sleep(unsigned long int time_period, t_philosopher *phil);
 void	print_msg(t_philosopher *phil);
+int init_pdata(t_pdata *data, int argc, char **argv);
+void	create_threads(t_pdata *data);
+void	print_err_msg(t_errors err);
 
 
 

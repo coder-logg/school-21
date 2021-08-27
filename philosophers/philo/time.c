@@ -1,38 +1,26 @@
 #include "philo.h"
 
-//unsigned long int get_time()
-//{
-//	struct timeval time;
-//
-//	gettimeofday(&time, DST_NONE);
-//
-//}
-
-
-unsigned long int  get_time(void)
+long long int  get_time(void)
 {
-	struct timeval          time;
-	unsigned long int        ret;
+	struct timeval	time;
 
-	if (gettimeofday(&time, NULL))
-		return (0);
-	ret = time.tv_sec * 1000 + time.tv_usec * 0.001;
-	return (ret);
+	gettimeofday(&time, NULL);
+	return ((time.tv_sec * 1000000 + time.tv_usec) / 1000);
 }
 
-void    go_sleep(unsigned long int time_period, t_philosopher *phil)
+void    go_sleep(unsigned long int time, t_philosopher *phil)
 {
 	unsigned long int  new_time;
 
-	new_time = get_time() + time_period;
+	new_time = get_time() + time;
 	while (get_time() < new_time)
 	{
-		if (get_time() - phil->last_eat_time>=phil->input->time_to_eat)
+		if (get_time() - phil->last_eat_time >= phil->input->time_to_die)
 		{
 			phil->state = DEAD;
-			print_msg(phil);
+			pthread_mutex_lock(phil->msg_mutex);
 			break ;
 		}
-		usleep(10);
+		usleep(50);
 	}
 }

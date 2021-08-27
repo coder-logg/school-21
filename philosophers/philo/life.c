@@ -3,7 +3,7 @@
 void	take_fork_msg(t_philosopher *phil)
 {
 	pthread_mutex_lock(phil->msg_mutex);
-	printf("\x1b[32m%lu %d has taken fork\n\x1b[0m", get_time() - phil->birth_time, phil->philo_id);
+	printf("\x1b[32m%llu %d has taken fork\n\x1b[0m", get_time() - phil->birth_time, phil->philo_id);
 	pthread_mutex_unlock(phil->msg_mutex);
 }
 
@@ -11,15 +11,19 @@ void	print_msg(t_philosopher *phil)
 {
 	pthread_mutex_lock(phil->msg_mutex);
 	if (phil->state == EATING)
-		printf("\x1b[92m%lu %d is eating\n\x1b[0m", get_time() - phil->birth_time, phil->philo_id);
+		printf("\x1b[92m%llu %d is eating\n\x1b[0m", get_time() - phil->birth_time, phil->philo_id);
 	if (phil->state == SLEEPING)
-		printf("\x1b[94m%lu %d is sleeping\n\x1b[0m", get_time() - phil->birth_time, phil->philo_id);
+		printf("\x1b[94m%llu %d is sleeping\n\x1b[0m", get_time() - phil->birth_time, phil->philo_id);
 	if (phil->state == THINKING)
-		printf("\x1b[93m%lu %d is thinking\n\x1b[0m", get_time() - phil->birth_time, phil->philo_id);
+		printf("\x1b[93m%llu %d is thinking\n\x1b[0m", get_time() - phil->birth_time, phil->philo_id);
 	if (phil->state == DEAD)
-		printf("\x1b[91m%lu %d died\n\x1b[0m", get_time() - phil->birth_time, phil->philo_id);
-	if (phil->state != DEAD)
+	{
+		printf("\x1b[91m%llu %d died\n\x1b[0m", get_time() - phil->birth_time, phil->philo_id);
+	}
+//	if (phil->state != DEAD)
+//	{
 		pthread_mutex_unlock(phil->msg_mutex);
+//	}
 }
 
 
@@ -43,8 +47,8 @@ void	*life(void *arg)
 
 	phil = (t_philosopher *)arg;
 	pthread_detach(phil->thread_id);
-//	if (phil->philo_id % 2)
-//		usleep(1000);
+	if (phil->philo_id % 2)
+		usleep(1000);
 	while (phil->state != DEAD)
 	{
 		eat(phil);
@@ -54,5 +58,5 @@ void	*life(void *arg)
 		phil->state = THINKING;
 		print_msg(phil);
 	}
-	return(NULL);
+	return (NULL);
 }

@@ -23,8 +23,7 @@ int	check_args(int argc, char **argv)
 	&& check_arg(argv[2]) && check_arg(argv[3]))
 	|| (argc == 5 && !check_arg(argv[4])))
 	{
-		printf(ERR_MSG);
-		printf("Error: Invalid non integer number argument!\n");
+		print_err_msg(INPUT_DATA_ERROR);
 		return (0);
 	}
 	return (1);

@@ -1,6 +1,6 @@
 NAME	= philo
 SRCDIR	=	./
-SRCS	=	$(addprefix $(SRCDIR), main.c utils.c life.c time.c check_args.c)
+SRCS	=	$(addprefix $(SRCDIR), main.c utils.c life.c time.c check_args.c start.c)
 OBJS	=	$(SRCS:.c=.o)
 HEADER	=	$(addprefix $(SRCDIR), philo.h)
 CC	=	gcc
