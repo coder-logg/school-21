@@ -5,6 +5,7 @@ void	free_memory(t_pdata *data)
 	free(data->input);
 	free(data->forks);
 	free(data->philos);
+	// todo destroy mutexes
 }
 
 void	print_err_msg(t_errors err)

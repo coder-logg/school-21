@@ -11,7 +11,7 @@ all: $(NAME)
 	cd $(@D) && $(CC) $(FLAGS) -c $(<F)
 
 $(NAME): $(OBJS)
-	$(CC) -o $@ $(OBJS)
+	$(CC) -o $@ $(OBJS) -lpthread
 
 clean:
 	rm -f $(OBJS)

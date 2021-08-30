@@ -20,14 +20,12 @@ static int	init_sys(t_pdata *data)
 	int	i;
 
 	i = 0;
-	data->input = ft_calloc(1 ,  sizeof(*data->input));
-//	if (check_err(data->input, MALLOC_ERROR))
-//		return (-1);
+
 
 	data->forks = ft_calloc(data->input->philos_nbr,  sizeof(pthread_mutex_t));
-//	if (check_err(data->forks, MALLOC_ERROR))
-//		return (-1);
-pthread_mutex_init(data->forks + i++, NULL);
+	if (check_err(data->forks, MALLOC_ERROR))
+		return (-1);
+    pthread_mutex_init(data->forks + i++, NULL);
 //	while (i < data->input->philos_nbr)
 //	{
 //		if (check_err((void *) pthread_mutex_init(data->forks + i++, NULL),
@@ -37,11 +35,11 @@ pthread_mutex_init(data->forks + i++, NULL);
 	data->philos = ft_calloc(data->input->philos_nbr, sizeof(*data->philos));
 //	if (check_err(data->philos, MALLOC_ERROR))
 //		return (-1);
-pthread_mutex_init(&data->msg_mutex, NULL);
+    pthread_mutex_init(&data->msg_mutex, NULL);
 //	if (check_err((void *) pthread_mutex_init(&data->msg_mutex, NULL),
 //				  MUTEX_INIT_ERROR))
 //		return (-1);
-return (0);
+    return (0);
 }
 
 static int	init_philos(t_pdata *data)
@@ -68,7 +66,9 @@ static int	init_philos(t_pdata *data)
 
 int init_pdata(t_pdata *data, int argc, char **argv)
 {
-	init_sys(data);
+    data->input = ft_calloc(1 ,  sizeof(*data->input));
+	if (check_err(data->input, MALLOC_ERROR))
+		return (-1);
 	data->input->philos_nbr = ft_atoi(argv[0]);
 	data->input->time_to_die = ft_atoi(argv[1]);
 	data->input->time_to_eat = ft_atoi(argv[2]);
@@ -76,6 +76,7 @@ int init_pdata(t_pdata *data, int argc, char **argv)
 	data->input->times_eat = 0;
 	if (argc == 5)
 		data->input->times_eat = ft_atoi(argv[4]);
+    init_sys(data);
 	init_philos(data);
 	return(0);
 }

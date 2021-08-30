@@ -25,7 +25,8 @@ typedef enum e_pstates
 	EATING,
 	SLEEPING,
 	THINKING,
-	DEAD
+	DEAD,
+	ALL_EATEN
 }			t_pstates_enum;
 
 typedef struct s_input_data
@@ -47,6 +48,7 @@ typedef	struct s_philosopher
 	unsigned long int	last_eat_time;
 	unsigned int		philo_id;
 	unsigned long int	birth_time;
+	unsigned int        eat_counter;
 	t_input_data		*input;
 }			t_philosopher;
 
