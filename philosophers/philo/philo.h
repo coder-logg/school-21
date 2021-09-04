@@ -1,33 +1,35 @@
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <pthread.h>
-# include <string.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <sys/time.h>
+# define LIVE 15
+# define DEAD 10
+# define ALL_EATEN 11
 
-#define ERR_MSG "Usage: ./philo number_of_philosophers time_to_die"\
-" time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]\n"
+# include <unistd.h>
+# include <stdlib.h>
+# include <pthread.h>
+# include <sys/time.h>
+# include <time.h>
+# include <stdio.h>
+# include <libc.h>
 
 typedef enum e_errors
 {
-	MALLOC_ERROR,
+	MALLOC_ERROR = 42,
 	INPUT_DATA_ERROR,
 	INPUT_FORMAT_ERROR,
 	MUTEX_INIT_ERROR,
 	PTHREAD_CREATE_ERROR
 }			t_errors;
 
-typedef enum e_pstates
-{
-	EATING,
-	SLEEPING,
-	THINKING,
-	DEAD,
-	ALL_EATEN
-}			t_pstates_enum;
+//typedef enum e_pstates
+//{
+//	EATING = 10,
+//	SLEEPING,
+//	THINKING,
+//	DEAD,
+//	ALL_EATEN
+//}			t_pstates_enum;
 
 typedef struct s_input_data
 {
@@ -41,7 +43,7 @@ typedef struct s_input_data
 typedef	struct s_philosopher
 {
 	pthread_t			thread_id;
-	t_pstates_enum		state;
+	int		state;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
 	pthread_mutex_t		*msg_mutex;
@@ -61,17 +63,17 @@ typedef	struct s_pdata
 	t_philosopher		*philos;
 }			t_pdata;
 
-long	ft_atoi(const char *str);
-void	*ft_calloc(size_t nmemb, size_t size);
-int		check_args(int argc, char **argv);
-void	*life(void *arg);
-long long int	get_time(void);
-void    go_sleep(unsigned long int time_period, t_philosopher *phil);
-void	print_msg(t_philosopher *phil);
-int init_pdata(t_pdata *data, int argc, char **argv);
-void	create_threads(t_pdata *data);
-void	print_err_msg(t_errors err);
-
-
+long				ft_atoi(const char *str);
+void				*ft_calloc(size_t nmemb, size_t size);
+int					check_args(int argc, char **argv);
+void 				print_status(t_philosopher *phil, const char *str,
+								  const char *color,int state);
+void				*life(void *arg);
+unsigned long int	get_time(void);
+void				go_sleep(unsigned long int time_period, t_philosopher *phil);
+int					init_pdata(t_pdata *data, int argc, char **argv);
+int					create_threads(t_pdata *data);
+int					print_err_msg(t_errors err);
+void				finish(t_pdata *data);
 
 #endif

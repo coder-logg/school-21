@@ -1,45 +1,55 @@
+#include <errno.h>
+#include <string.h>
 #include "philo.h"
 
-void	take_fork_msg(t_philosopher *phil)
+void print_status(t_philosopher *phil, const char *str, const char *color,
+				  int state)
 {
-	pthread_mutex_lock(phil->msg_mutex);
-	printf("\x1b[32m%llu %d has taken fork\n\x1b[0m", get_time() - phil->birth_time, phil->philo_id);
-	pthread_mutex_unlock(phil->msg_mutex);
-}
-
-void	print_msg(t_philosopher *phil)
-{
-	pthread_mutex_lock(phil->msg_mutex);
-	if (phil->state == EATING)
-		printf("\x1b[92m%llu %d is eating\n\x1b[0m", get_time() - phil->birth_time, phil->philo_id);
-	if (phil->state == SLEEPING)
-		printf("\x1b[94m%llu %d is sleeping\n\x1b[0m", get_time() - phil->birth_time, phil->philo_id);
-	if (phil->state == THINKING)
-		printf("\x1b[93m%llu %d is thinking\n\x1b[0m", get_time() - phil->birth_time, phil->philo_id);
-	if (phil->state == DEAD)
-		printf("\x1b[91m%llu %d died\n\x1b[0m", get_time() - phil->birth_time, phil->philo_id);
-	if (phil->state == ALL_EATEN)
-        printf("\x1b[96m%llu %d is full\n\x1b[0m", get_time() - phil->birth_time, phil->philo_id);
-//	if (phil->state != DEAD)
+//	pthread_mutex_lock(phil->msg_mutex);
+//	if (is_dead)
+//		phil->state = DEAD;
+	if (pthread_mutex_lock(phil->msg_mutex))
+		printf("lock %s\n", strerror(errno));
+	phil->state = state;
+//	if (phil->state == DEAD)
 //	{
-		pthread_mutex_unlock(phil->msg_mutex);
+////		usleep(50);
+////		printf("%d dead\n",  phil->philo_id);
 //	}
+	printf("%s%lu	%d	%s\n\x1b[0m", color, get_time() - phil->birth_time, phil->philo_id, str);
+	if (phil->state != DEAD)
+	{
+		if (pthread_mutex_unlock(phil->msg_mutex))
+			printf("unlock %s\n", strerror(errno));
+	}
 }
-
 
 void	eat(t_philosopher *phil)
 {
-	pthread_mutex_lock(phil->left_fork);
-	take_fork_msg(phil);
-	pthread_mutex_lock(phil->right_fork);
-	take_fork_msg(phil);
-	phil->state = EATING;
-	print_msg(phil);
+	if (phil->philo_id % 2)
+		pthread_mutex_lock(phil->left_fork);
+	else
+		pthread_mutex_lock(phil->right_fork);
+	print_status(phil, "has taken fork", "\x1b[32m", LIVE);
+	if (phil->philo_id % 2)
+		pthread_mutex_lock(phil->right_fork);
+	else
+		pthread_mutex_lock(phil->left_fork);
+	print_status(phil, "has taken fork", "\x1b[32m", LIVE);
+	print_status(phil, "is eating", "\x1b[92m", LIVE);
 	phil->last_eat_time = get_time();
 	phil->eat_counter++;
 	go_sleep(phil->input->time_to_eat, phil);
-	pthread_mutex_unlock(phil->left_fork);
-	pthread_mutex_unlock(phil->right_fork);
+	if (phil->state == DEAD)
+		return ;
+	if (phil->philo_id % 2)
+		pthread_mutex_unlock(phil->left_fork);
+	else
+		pthread_mutex_unlock(phil->right_fork);
+	if (phil->philo_id % 2)
+		pthread_mutex_unlock(phil->right_fork);
+	else
+		pthread_mutex_unlock(phil->left_fork);
 }
 
 void	*life(void *arg)
@@ -48,22 +58,21 @@ void	*life(void *arg)
 
 	phil = (t_philosopher *)arg;
 	pthread_detach(phil->thread_id);
-	if (phil->philo_id % 2)
-		usleep(1000);
 	while (1)
 	{
 		eat(phil);
-		if (phil->input->times_eat > 0 && phil->eat_counter > phil->input->times_eat)
-        {
-            break ;
-        }
-		phil->state = SLEEPING;
-		print_msg(phil);
+		if (phil->state == DEAD)
+			break ;
+		if (phil->eat_counter == phil->input->times_eat)
+		{
+			phil->state = ALL_EATEN;
+			break ;
+		}
+		print_status(phil, "is sleeping", "\x1b[94m", LIVE);
 		go_sleep(phil->input->time_to_sleep, phil);
-		phil->state = THINKING;
-		print_msg(phil);
+		if (phil->state == DEAD)
+			break ;
+		print_status(phil, "is thinking", "\x1b[93m", LIVE);
 	}
-    phil->state = ALL_EATEN;
-    print_msg(phil);
 	return (NULL);
 }

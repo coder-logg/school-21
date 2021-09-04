@@ -1,14 +1,6 @@
 #include "philo.h"
 
-void	free_memory(t_pdata *data)
-{
-	free(data->input);
-	free(data->forks);
-	free(data->philos);
-	// todo destroy mutexes
-}
-
-void	print_err_msg(t_errors err)
+int	print_err_msg(t_errors err)
 {
 	if (err == MALLOC_ERROR)
 		printf("Malloc error.\n");
@@ -21,34 +13,10 @@ void	print_err_msg(t_errors err)
 			   " time_to_sleep [number_of_times_each_philosopher_must_eat]\n");
 	if (err == PTHREAD_CREATE_ERROR)
 		printf("Thread creation error.\n");
+	return (err);
 }
 
-void	wait_death(t_pdata *data)
-{
-	int		i;
 
-	while (1)
-	{
-		i = 0;
-		while (i < data->input->philos_nbr)
-		{
-			if (data->philos[i].state == DEAD)
-			{
-				printf("\x1b[91m%llu %d died\n\x1b[0m",
-					get_time() - data->philos[i].birth_time,
-					data->philos[i].philo_id);
-				return ;
-			}
-			i++;
-		}
-	}
-}
-
-void	finish(t_pdata *data)
-{
-	wait_death(data);
-	free_memory(data);
-}
 
 int	main(int argc, char **argv)
 {
@@ -63,8 +31,10 @@ int	main(int argc, char **argv)
 	}
 	if (!check_args(argc, argv))
 		return (1);
-	init_pdata(&data, argc, argv);
-	create_threads(&data);
+	if (print_err_msg(init_pdata(&data, argc, argv)) != 0)
+		return (1);
+	if (print_err_msg(create_threads(&data)) != 0)
+		return (1);
 	finish(&data);
 	return (0);
 }

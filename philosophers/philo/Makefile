@@ -1,8 +1,9 @@
 NAME	= philo
 SRCDIR	=	./
-SRCS	=	$(addprefix $(SRCDIR), main.c utils.c life.c time.c check_args.c start.c)
+SRCS	=	$(addprefix $(SRCDIR), main.c utils.c life.c time.c check_args.c start.c finish.c)
 OBJS	=	$(SRCS:.c=.o)
 HEADER	=	$(addprefix $(SRCDIR), philo.h)
+FLAGS	=	-Wall -Werror -Wextra
 CC	=	gcc
 
 all: $(NAME)
@@ -11,7 +12,7 @@ all: $(NAME)
 	cd $(@D) && $(CC) $(FLAGS) -c $(<F)
 
 $(NAME): $(OBJS)
-	$(CC) -o $@ $(OBJS) -lpthread
+	$(CC) -o $@ $(OBJS)
 
 clean:
 	rm -f $(OBJS)
