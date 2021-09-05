@@ -5,7 +5,7 @@ static int	init_sys(t_pdata *data)
 	int	i;
 
 	i = 0;
-	data->forks = ft_calloc(data->input->philos_nbr,  sizeof(pthread_mutex_t));
+	data->forks = ft_calloc(data->input->philos_nbr, sizeof(pthread_mutex_t));
 	if (data->forks == NULL)
 		return (MALLOC_ERROR);
 	while (i < (int)data->input->philos_nbr)
@@ -18,13 +18,13 @@ static int	init_sys(t_pdata *data)
 		return (MALLOC_ERROR);
 	if (pthread_mutex_init(&(data->msg_mutex), NULL))
 		return (MUTEX_INIT_ERROR);
-    return (0);
+	return (0);
 }
 
 static void	init_philos(t_pdata *data)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < (int)data->input->philos_nbr)
 	{
@@ -35,6 +35,7 @@ static void	init_philos(t_pdata *data)
 		data->philos[i].input = data->input;
 		data->philos[i].last_eat_time = get_time();
 		data->philos[i].state = LIVE;
+		data->philos[i].err = &data->err;
 		if (i != (int)data->input->philos_nbr - 1)
 			data->philos[i].right_fork = data->forks + i + 1;
 		else
@@ -43,9 +44,11 @@ static void	init_philos(t_pdata *data)
 	}
 }
 
-int init_pdata(t_pdata *data, int argc, char **argv)
+int	init_pdata(t_pdata *data, int argc, char **argv)
 {
-    data->input = ft_calloc(1 ,  sizeof(*data->input));
+	int	tmp;
+
+	data->input = ft_calloc(1, sizeof(*data->input));
 	if (data->input == NULL)
 		return (MALLOC_ERROR);
 	data->input->philos_nbr = ft_atoi(argv[0]);
@@ -55,16 +58,17 @@ int init_pdata(t_pdata *data, int argc, char **argv)
 	data->input->times_eat = 0;
 	if (argc == 5)
 		data->input->times_eat = ft_atoi(argv[4]);
-	int tmp = init_sys(data);
+	data->err = 0;
+	tmp = init_sys(data);
 	if (tmp)
 		return (tmp);
 	init_philos(data);
-	return(0);
+	return (0);
 }
 
 int	create_threads(t_pdata *data)
 {
-	int				i;
+	int					i;
 	unsigned long int	time;
 
 	i = 0;
@@ -72,9 +76,9 @@ int	create_threads(t_pdata *data)
 	while (i < (int)data->input->philos_nbr)
 	{
 		data->philos[i].birth_time = time;
-		if (pthread_create(&data->philos[i].thread_id, NULL, life, data->philos + i))
+		if (pthread_create(&data->philos[i].thread_id, NULL, life,
+				data->philos + i))
 			return (PTHREAD_CREATE_ERROR);
-//		usleep(100);
 		i++;
 	}
 	return (0);

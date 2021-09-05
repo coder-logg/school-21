@@ -1,6 +1,6 @@
 NAME	= philo
 SRCDIR	=	./
-SRCS	=	$(addprefix $(SRCDIR), main.c utils.c life.c time.c check_args.c start.c finish.c)
+SRCS	=	$(addprefix $(SRCDIR), main.c utils.c life.c time.c check_args.c start.c finish.c printer.c)
 OBJS	=	$(SRCS:.c=.o)
 HEADER	=	$(addprefix $(SRCDIR), philo.h)
 FLAGS	=	-Wall -Werror -Wextra

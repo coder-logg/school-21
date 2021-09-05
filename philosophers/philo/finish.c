@@ -5,32 +5,43 @@ void	free_memory(t_pdata *data)
 	free(data->input);
 	free(data->forks);
 	free(data->philos);
-	// todo destroy mutexes
+}
+
+int	check_death(t_pdata *data)
+{
+	int		counter;
+	int		i;
+
+	counter = 0;
+	i = 0;
+	while (i < (int)data->input->philos_nbr)
+	{
+		if (data->philos[i].state == DEAD)
+		{
+			print_state(data->philos + i, "died", "\x1b[31m", DEAD);
+			return (1);
+		}
+		if (data->philos[i].state == ALL_EATEN)
+			counter++;
+		if (data->err != 0)
+		{
+			pthread_mutex_lock(&data->msg_mutex);
+			print_err_msg(data->err);
+			return (1);
+		}
+		i++;
+	}
+	if (counter == (int)data->input->philos_nbr)
+		return (1);
+	return (0);
 }
 
 void	wait_death(t_pdata *data)
 {
-	int		i;
-	int		counter;
-
 	while (1)
 	{
-		i = 0;
-		counter = 0;
-		while (i < (int)data->input->philos_nbr)
-		{
-			if (data->philos[i].state == DEAD)
-			{
-//				pthread_mutex_lock(&data->msg_mutex);
-				print_status(data->philos + i, "died", "\x1b[31m", DEAD);
-				return ;
-			}
-			if (data->philos[i].state == ALL_EATEN)
-				counter++;
-			i++;
-		}
-		if (counter == (int)data->input->philos_nbr)
-			break ;
+		if (check_death(data))
+			return ;
 	}
 }
 

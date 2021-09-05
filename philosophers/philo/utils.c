@@ -31,8 +31,8 @@ long	ft_atoi(const char *str)
 	is_positive = 1;
 	i = 0;
 	while (str[i] && (str[i] == '-' || str[i] == '+'
-	|| (str[i] >= '0' && str[i] <= '9')
-	|| (str[i] >= '\t' && str[i] <= '\r') || str[i] == ' '))
+			|| (str[i] >= '0' && str[i] <= '9')
+			|| (str[i] >= '\t' && str[i] <= '\r') || str[i] == ' '))
 	{
 		if (str[i] == '-' || str[i] == '+')
 		{
