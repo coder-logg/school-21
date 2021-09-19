@@ -17,10 +17,7 @@ int	check_death(t_pdata *data)
 	while (i < (int)data->input->philos_nbr)
 	{
 		if (data->philos[i].state == DEAD)
-		{
-			print_state(data->philos + i, "died", "\x1b[31m", DEAD);
 			return (1);
-		}
 		if (data->philos[i].state == ALL_EATEN)
 			counter++;
 		if (data->err != 0)

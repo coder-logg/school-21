@@ -6,8 +6,6 @@ void	free_memory(t_philo *philos)
 	{
 		check_err(sem_close(philos->data->forks), SEM_CLOSE_ERROR);
 		check_err(sem_close(philos->data->print_sem), SEM_CLOSE_ERROR);
-		check_err(sem_unlink("forks"), SEM_UNLINK_ERROR);
-		check_err(sem_unlink("print_sem"), SEM_UNLINK_ERROR);
 		free(philos->data->input);
 	}
 	if (philos != NULL && philos->data != NULL)
@@ -30,7 +28,10 @@ static void	wait_death(t_philo *philos)
 		waitpid(-1, &st, 0);
 		st = WEXITSTATUS(st);
 		if (st == ALL_EATEN && ++count == (int)philos->data->input->philos_nbr)
+		{
+//			sem_wait(philos->data->print_sem);
 			break ;
+		}
 		if (st == DEAD)
 		{
 			i = 0;

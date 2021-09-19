@@ -1,10 +1,4 @@
-#include "philo.h"
-
-void	check_err(int function_res, t_errors may_be_err_code)
-{
-	if (function_res)
-		ft_error(may_be_err_code, NULL);
-}
+#include "libft.h"
 
 long	make_nbr(const char *s, char is_positive)
 {
@@ -26,7 +20,7 @@ long	make_nbr(const char *s, char is_positive)
 		res = res * 10 + s[i] - '0';
 		i++;
 	}
-	return (res * is_positive);
+	return ((res * is_positive));
 }
 
 long	ft_atoi(const char *str)
@@ -55,14 +49,4 @@ long	ft_atoi(const char *str)
 		i++;
 	}
 	return (0);
-}
-
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	void	*res;
-
-	res = malloc(nmemb * size);
-	if (res != NULL)
-		memset(res, 0, size * nmemb);
-	return (res);
 }

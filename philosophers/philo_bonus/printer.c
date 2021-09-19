@@ -1,10 +1,10 @@
 #include "philo.h"
 
-void	print_state(t_philo *phil, const char *str, const char *clr)
+void	print_state(t_philo *phil, const char *str)
 {
 	check_err(sem_wait(phil->data->print_sem), SEM_WAIT_ERROR);
-	printf("%s %lu	%d	%s\n\x1b[0m", clr,
-		   get_time() - phil->data->start_time, phil->philo_id, str);
+	printf("%lu	%d	%s\n",
+		get_time() - phil->data->start_time, phil->philo_id, str);
 	check_err(sem_post(phil->data->print_sem), SEM_POST_ERROR);
 }
 
@@ -29,8 +29,6 @@ void	print_err(t_errors err)
 		printf("Process creation error.\n");
 	if (err == SEM_POST_ERROR)
 		printf("Semaphore post error.\n");
-	if (err == SEM_UNLINK_ERROR)
-		printf("Semaphore unlink error.\n");
 	if (err == SEM_WAIT_ERROR)
 		printf("Semaphore wait error.\n");
 	if (err == SEM_CLOSE_ERROR)
@@ -47,7 +45,6 @@ int	is_err(int err_code)
 		|| err_code == PTHREAD_CREATE_ERROR
 		|| err_code == SEM_WAIT_ERROR
 		|| err_code == SEM_POST_ERROR
-		|| err_code == SEM_UNLINK_ERROR
 		|| err_code == SEM_CLOSE_ERROR)
 		return (1);
 	return (0);

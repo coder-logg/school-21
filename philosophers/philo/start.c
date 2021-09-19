@@ -33,7 +33,6 @@ static void	init_philos(t_pdata *data)
 		data->philos[i].philo_id = i + 1;
 		data->philos[i].left_fork = data->forks + i;
 		data->philos[i].input = data->input;
-		data->philos[i].last_eat_time = get_time();
 		data->philos[i].state = LIVE;
 		data->philos[i].err = &data->err;
 		if (i != (int)data->input->philos_nbr - 1)
@@ -55,9 +54,11 @@ int	init_pdata(t_pdata *data, int argc, char **argv)
 	data->input->time_to_die = ft_atoi(argv[1]);
 	data->input->time_to_eat = ft_atoi(argv[2]);
 	data->input->time_to_sleep = ft_atoi(argv[3]);
-	data->input->times_eat = 0;
+	data->input->times_eat = -1;
 	if (argc == 5)
 		data->input->times_eat = ft_atoi(argv[4]);
+	if (data->input->times_eat == 0)
+		return (INPUT_DATA_ERROR);
 	data->err = 0;
 	tmp = init_sys(data);
 	if (tmp)
@@ -68,8 +69,8 @@ int	init_pdata(t_pdata *data, int argc, char **argv)
 
 int	create_threads(t_pdata *data)
 {
-	int					i;
-	unsigned long int	time;
+	int				i;
+	unsigned long	time;
 
 	i = 0;
 	time = get_time();

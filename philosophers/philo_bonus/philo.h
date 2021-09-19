@@ -25,14 +25,13 @@ typedef enum e_errors
 	PTHREAD_DETACH_ERROR,
 	SEM_WAIT_ERROR,
 	SEM_POST_ERROR,
-	SEM_UNLINK_ERROR,
 	SEM_CLOSE_ERROR
 }			t_errors;
 
 typedef struct s_input_data
 {
 	unsigned int	philos_nbr;
-	unsigned int	times_eat;
+	int				times_eat;
 	unsigned long	time_to_die;
 	unsigned long	time_to_sleep;
 	unsigned long	time_to_eat;
@@ -43,8 +42,8 @@ typedef struct s_philo
 	int				pid;
 	unsigned long	last_eat_time;
 	unsigned int	philo_id;
-	unsigned int	eat_counter;
-	pthread_t		check_death_thread;
+	int				eat_counter;
+	int				flag;
 	struct s_pdata	*data;
 }			t_philo;
 
@@ -59,7 +58,7 @@ typedef struct s_pdata
 long			ft_atoi(const char *str);
 void			*ft_calloc(size_t nmemb, size_t size);
 void			check_args(int argc, char **argv);
-void			print_state(t_philo *phil, const char *s, const char *clr);
+void			print_state(t_philo *phil, const char *str);
 void			*life(void *arg);
 unsigned long	get_time(void);
 void			go_sleep(unsigned long time);

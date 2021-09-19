@@ -1,15 +1,18 @@
 #include "philo.h"
 
-void	print_state(t_philo *phil, const char *str, const char *clr, int state)
+void	print_state(t_philo *ph, const char *str, const char *clr, int state)
 {
-	if (*phil->err == 0)
+	if (*ph->err == 0)
 	{
-		pthread_mutex_lock(phil->msg_mutex);
-		phil->state = state;
+		checkerr(ph, pthread_mutex_lock(ph->msg_mutex), LOCK_ERROR);
+		pthread_mutex_lock(&ph->chg_state);
+		ph->state = state;
+		if (ph->state != DEAD)
+			pthread_mutex_unlock(&ph->chg_state);
 		printf("%s%lu	%d	%s\n\x1b[0m", clr,
-			   get_time() - phil->birth_time, phil->philo_id, str);
-		if (phil->state != DEAD)
-			pthread_mutex_unlock(phil->msg_mutex);
+			   get_time() - ph->birth_time, ph->philo_id, str);
+		if (ph->state != DEAD)
+			checkerr(ph, pthread_mutex_unlock(ph->msg_mutex), UNLOCK_ERROR);
 	}
 }
 
@@ -19,7 +22,7 @@ int	print_err_msg(t_errors err)
 		printf("Malloc error.\n");
 	if (err == INPUT_DATA_ERROR)
 		printf("Error is in input data. "
-			   "All arguments should be integer numbers.\n");
+			   "All arguments should be integer greater then zero.\n");
 	if (err == MUTEX_INIT_ERROR)
 		printf("Mutex error.\n");
 	if (err == INPUT_FORMAT_ERROR)

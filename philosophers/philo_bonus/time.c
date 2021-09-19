@@ -14,5 +14,5 @@ void	go_sleep(unsigned long time)
 
 	new_time = get_time() + time;
 	while (get_time() < new_time)
-		usleep(10);
+		usleep(50);
 }
