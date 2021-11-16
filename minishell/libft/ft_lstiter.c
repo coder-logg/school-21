@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cvenkman <cvenkman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/01 11:01:37 by cvenkman          #+#    #+#             */
+/*   Updated: 2021/11/16 13:17:13 by tphlogis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	if (lst == NULL)
-		return ;
-	f(lst->content);
-	ft_lstiter(lst->next, f);
+	while (lst)
+	{
+		f(lst->content);
+		lst = lst->next;
+	}
 }

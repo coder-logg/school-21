@@ -6,7 +6,7 @@ Program name | minishell
 Turn in files | |
 Makefile | Yes
 Arguments | |
-External functs. | `readline`, `rl_clear_history`, `rl_on_new_line`, <br>`rl_replace_line`, `rl_redisplay`, `add_history`, `printf`, <br> `malloc`, `free`, `write`, `open`, `read`, `close`, `fork`, `wait`, <br>`waitpid`, `wait3`, `wait4`, `signal`, `kill`, `exit`, `getcwd`,  <br>`chdir`, `stat`, `lstat`, `fstat`, `unlink`, `execve`, `dup`,  <br>`dup2`, `pipe`, `opendir`, `readdir`, `closedir`, `strerror`,  <br>`perror`, `isatty`, `ttyname`, `ttyslot`, `ioctl`, `getenv`,  <br>`tcsetattr`, `tcgetattr`, `tgetent`, `tgetflag`, `tgetnum`,  <br>`tgetstr`, `tgoto`, `tputs`
+External functs. | `readline`, `rl_clear_history`, `rl_on_new_line`, <br>`rl_replace_line`, `rl_redisplay`, `add_history`, `printf`, <br> `malloc`, `free`, `write`, `access`, `open`, `read`, `close`, `fork`, `wait`, <br>`waitpid`, `wait3`, `wait4`, `signal`, `sigaction`, `kill`, `exit`, `getcwd`,  <br>`chdir`, `stat`, `lstat`, `fstat`, `unlink`, `execve`, `dup`,  <br>`dup2`, `pipe`, `opendir`, `readdir`, `closedir`, `strerror`,  <br>`perror`, `isatty`, `ttyname`, `ttyslot`, `ioctl`, `getenv`,  <br>`tcsetattr`, `tcgetattr`, `tgetent`, `tgetflag`, `tgetnum`,  <br>`tgetstr`, `tgoto`, `tputs`
 Libft authorized | Yes
 Description | Write a shell
 
@@ -41,8 +41,13 @@ Description | Write a shell
   * `ctrl-D` выйти из оболочки.
   * `ctrl- \ ` ничего не делать.
 
-Функция `readline` может вызвать некоторую утечку, которую не нужно исправлять.
-Но будьте осторожны, ваш собственный код не должен давать утечек.
-Следует ограничиться описанием.
-Ничего, о чем не спрашивали, не требуется.
-По каждому пункту, если у вас есть сомнения, используйте `bash` в качестве справочника.
+Функция `readline` может вызвать некоторую утечку, которую не нужно исправлять.\
+Но будьте осторожны, ваш собственный код не должен давать утечек.\
+Следует ограничиться описанием.\
+Ничего, о чем не просили, не требуется.\
+По каждому пункту, если у вас есть сомнения, используйте [bash](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/) в качестве справочника.
+
+## Бонусная часть
+* Если обязательная часть не идеальна, даже не думайте о бонусах.
+* `&&`, `||` со скобками для обозначения приоритетов.
+* знак `*` должен работать для текущего рабочего каталога.

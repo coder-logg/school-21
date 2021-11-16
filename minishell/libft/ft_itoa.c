@@ -1,54 +1,62 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cvenkman <cvenkman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/28 14:23:35 by cvenkman          #+#    #+#             */
+/*   Updated: 2021/11/16 13:17:13 by tphlogis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
-#include <string.h>
 
-static int	digit_number(int n, unsigned int *tmp_un)
+static int	ft_len(long int n)
 {
-	unsigned int	un;
-	int				i;
+	int	len;
 
+	len = 0;
 	if (n == 0)
-	{
-		*tmp_un = 0;
 		return (1);
-	}
-	un = n;
-	i = 0;
 	if (n < 0)
 	{
-		un = ~un;
-		un++;
-		i++;
+		len++;
+		n = -n;
 	}
-	(*tmp_un) = un;
-	while (un > 0)
+	while (n > 0)
 	{
-		i++;
-		un /= 10;
+		n = n / 10;
+		len++;
 	}
-	return (i);
+	return (len);
 }
 
 char	*ft_itoa(int n)
 {
-	char			*res;
-	unsigned int	tmp_un;
-	int				dnbr;
+	char	*str;
+	int		i;
 
-	dnbr = digit_number(n, &tmp_un);
-	res = (char *)malloc(sizeof(char) * (dnbr + 1));
-	if (res != NULL)
+	if (n == 0)
+		return (ft_strdup("0"));
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	i = ft_len(n);
+	str = malloc(sizeof(char) * (i + 1));
+	if (!str)
+		return (NULL);
+	str[i] = '\0';
+	i--;
+	if (n < 0)
 	{
-		res[dnbr] = 0;
-		if (n < 0)
-			res[0] = '-';
-		else
-			res[0] = 0;
-		while (dnbr > 0 + (res[0] == '-'))
-		{
-			dnbr--;
-			res[dnbr] = tmp_un % 10 + '0';
-			tmp_un /= 10;
-		}
+		str[0] = '-';
+		n = -n;
 	}
-	return (res);
+	while (n > 0)
+	{
+		str[i] = (n % 10) + '0';
+		n = n / 10;
+		i--;
+	}
+	return (str);
 }

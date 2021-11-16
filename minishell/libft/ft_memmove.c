@@ -1,28 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cvenkman <cvenkman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/22 18:42:57 by cvenkman          #+#    #+#             */
+/*   Updated: 2021/11/16 13:17:13 by tphlogis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
-{
-	size_t	i;
-	char	flag;
-	char	*start_src;
-	char	*start_dst;
+void	*ft_memmove(void *dest, const void *src, size_t n)
+{	
+	char	*new_dest;
+	char	*new_src;
 
-	if (dst == NULL && src == NULL)
+	if (dest == NULL && src == NULL)
 		return (NULL);
-	i = 0;
-	flag = 1;
-	start_src = (char *)src;
-	start_dst = (char *)dst;
-	if (src < dst)
+	new_dest = (char *)dest;
+	new_src = (char *)src;
+	if (new_src < new_dest)
 	{
-		flag = -1;
-		start_src = start_src + len - 1;
-		start_dst = start_dst + len - 1;
+		while (n-- > 0)
+			new_dest[n] = new_src[n];
+		return (new_dest);
 	}
-	while (0 < len--)
-	{
-		*(start_dst + i * flag) = *(start_src + i * flag);
-		i++;
-	}
-	return (dst);
+	return (ft_memcpy(dest, src, n));
 }

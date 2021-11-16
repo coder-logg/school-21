@@ -1,53 +1,62 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cvenkman <cvenkman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/28 14:23:06 by cvenkman          #+#    #+#             */
+/*   Updated: 2021/11/16 13:17:13 by tphlogis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-static int	ten_in_pwr(int c)
+int	ft_lenn(int n)
 {
-	if (c == 1)
-		return (10);
-	if (c == 0)
-		return (1);
-	return (ten_in_pwr(c - 1) * 10);
-}
+	int	len;
 
-static int	zero_ornegative(int n, int fd, unsigned int *un)
-{
+	len = 0;
 	if (n == 0)
-	{
-		write(fd, "0", 1);
-		return (0);
-	}
+		return (1);
 	if (n < 0)
 	{
-		*un = ~(*un);
-		(*un)++;
-		write(fd, "-", 1);
-		return (-1);
+		len++;
+		n = -n;
 	}
-	return (1);
+	while (n > 0)
+	{
+		n = n / 10;
+		len++;
+	}
+	return (len);
 }
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	unsigned int	un;
-	char			c;
-	char			i;
-	unsigned int	tmp_un;
+	char	str[10];
+	int		i;
+	int		a;
 
-	un = n;
-	c = 0;
-	i = 0;
-	if (!zero_ornegative(n, fd, &un) || fd < 0)
-		return ;
-	tmp_un = un;
-	while (un > 0)
+	if (n == 0)
+		ft_putstr_fd("0", fd);
+	else if (n == -2147483648)
+		ft_putstr_fd("-2147483648", fd);
+	else
 	{
-		i++;
-		un /= 10;
-	}
-	while (i-- > 0)
-	{
-		c = tmp_un / ten_in_pwr(i) + '0';
-		write(fd, &c, 1);
-		tmp_un = tmp_un % ten_in_pwr(i);
+		i = ft_lenn(n) - 1;
+		a = i + 1;
+		if (n < 0)
+		{
+			str[0] = '-';
+			n = -n;
+		}
+		while (n > 0)
+		{
+			str[i] = (n % 10) + '0';
+			n = n / 10;
+			i--;
+		}
+		write(fd, str, a);
 	}
 }

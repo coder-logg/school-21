@@ -1,17 +1,42 @@
-#include <string.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cvenkman <cvenkman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/22 18:43:13 by cvenkman          #+#    #+#             */
+/*   Updated: 2021/11/16 13:17:13 by tphlogis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
+size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
-	size_t	dst_len;
-	size_t	src_len;
+	size_t	len;
+	size_t	i;
+	size_t	u;
 
-	dst_len = ft_strlen(dst);
-	src_len = ft_strlen(src);
-	if (dst_len >= size)
-		return (src_len + size);
-	else
-		size -= dst_len;
-	ft_strlcpy(dst + dst_len, src, size);
-	return (src_len + dst_len);
+	i = 0;
+	u = 0;
+	len = ft_strlen(src);
+	while (dest[i] && size > 0)
+	{
+		i++;
+		len++;
+		size--;
+	}
+	if (size > 0)
+	{
+		while (size > 1 && src[u])
+		{
+			dest[i] = src[u];
+			i++;
+			u++;
+			size--;
+		}
+		dest[i] = '\0';
+	}
+	return (len);
 }

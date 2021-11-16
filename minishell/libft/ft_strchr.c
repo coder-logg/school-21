@@ -1,28 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cvenkman <cvenkman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/22 18:43:05 by cvenkman          #+#    #+#             */
+/*   Updated: 2021/11/16 13:17:13 by tphlogis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *str, int sym)
 {
-	size_t	i;
-
-	i = 0;
-	while (s[i])
+	while (*(unsigned char *)str)
 	{
-		if (s[i] == (char)c)
-			return ((char *)&s[i]);
-		i++;
+		if (*(unsigned char *)str == sym)
+			return ((char *)str);
+		str++;
 	}
-	if (s[i] == (char)c)
-		return ((char *)&s[i]);
-	return (NULL);
-}
-
-char	*find_chrs_in_str(char *s, char *chrs)
-{
-	while (*s)
-	{
-		if (ft_strchr(chrs, *s) != NULL)
-			return (s);
-		s++;
-	}
-	return (NULL);
+	if (sym == '\0' && *str == '\0')
+		return ((char *)str);
+	return (0);
 }

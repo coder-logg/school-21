@@ -1,116 +1,106 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cvenkman <cvenkman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/29 18:06:07 by cvenkman          #+#    #+#             */
+/*   Updated: 2021/11/16 13:17:13 by tphlogis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-int	ft_count_words(char const *s, char c)
+static char	**ft_malloc_free(char **arr, unsigned int word_count)
 {
-	size_t	i;
-	int		wrd;
+	unsigned int	i;
 
-	wrd = 0;
 	i = 0;
+	while (i < word_count)
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+	return (NULL);
+}
+
+static unsigned int	ft_c_count(char const *s, char c)
+{
+	unsigned int	i;
+	unsigned int	word_count;
+
+	i = 0;
+	word_count = 0;
 	while (s[i])
 	{
-		if (s[i] == c)
+		while (s[i] == c && s[i])
 			i++;
-		else
+		if (s[i] != c && s[i])
 		{
-			wrd++;
-			while (s[i] && s[i] != c)
+			while (s[i] != c && s[i])
 				i++;
+			word_count++;
 		}
 	}
-	return (wrd);
+	return (word_count);
 }
 
-static void	ft_free_all(char **rez, int fl)
+unsigned int	ft_arr_elem_len(char const *str, char c)
 {
-	fl = (-1) * fl;
-	while (fl != 0)
+	unsigned int	arr_elem_len;
+
+	arr_elem_len = 0;
+	while (*str != c && *str)
 	{
-		free (rez[fl]);
-		rez[fl] = NULL;
-		fl--;
+		arr_elem_len++;
+		str++;
 	}
-	free (rez[0]);
-	free (rez);
-	rez = NULL;
+	return (arr_elem_len);
 }
 
-static int	ft_conadd_let(char const *s, char c, char **rez)
+static char	*ft_copy(char const *str, unsigned int arr_elem_len)
 {
-	int		i;
-	int		j;
-	char	*rit;
+	char			*arr_elem;
+	unsigned int	i;
 
 	i = 0;
-	while (s[i] && s[i] != c)
+	arr_elem = malloc(sizeof(char) * (arr_elem_len + 1));
+	if (!arr_elem)
+		return (NULL);
+	while (i < arr_elem_len)
+	{
+		arr_elem[i] = str[i];
 		i++;
-	rit = malloc(sizeof(char) * (i + 1));
-	if (!rit)
-		return (0);
-	j = 0;
-	while (*(s + j) && j < i)
-	{
-		rit[j] = *(s + j);
-		j++;
 	}
-	rit[j] = 0;
-	*rez = rit;
-	return (1);
-}
-
-static int	ft_add_newwr(char const *s, char c, int i, char **rez)
-{
-	int		j;
-	int		wrd;
-	int		k;
-
-	k = 1;
-	wrd = 0;
-	j = 0;
-	while (s[j])
-	{
-		if (s[j] == c)
-			j++;
-		else
-		{
-			if (wrd == i)
-				break ;
-			wrd++;
-			while (s[j] && s[j] != c)
-				j++;
-		}
-	}
-	if (s[j])
-		k = ft_conadd_let(&s[j], c, rez);
-	if (!k || wrd != i)
-		return (-i);
-	return (1);
+	arr_elem[i] = '\0';
+	return (arr_elem);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	int		wrd;
-	int		i;
-	int		fl;
-	char	**rez;
+	char			**arr;
+	unsigned int	i;
+	unsigned int	word_count;
 
+	i = 0;
 	if (!s)
 		return (NULL);
-	wrd = ft_count_words(s, c);
-	rez = malloc(sizeof(rez) * (wrd + 1));
-	if (!rez)
+	word_count = ft_c_count(s, c);
+	arr = (char **)malloc(sizeof(char *) * (word_count + 1));
+	if (!arr)
 		return (NULL);
-	i = 0;
-	while (i < wrd)
+	while (i < word_count)
 	{
-		fl = ft_add_newwr(s, c, i, &rez[i]);
-		if (fl != 1)
-		{
-			ft_free_all(rez, fl);
-			return (NULL);
-		}
+		while (*s == c)
+			s++;
+		arr[i] = ft_copy(s, ft_arr_elem_len(s, c));
+		if (arr[i] == NULL)
+			return (ft_malloc_free(arr, word_count));
+		s = s + ft_arr_elem_len(s, c);
 		i++;
 	}
-	rez[i] = NULL;
-	return (rez);
+	arr[i] = NULL;
+	return (arr);
 }
